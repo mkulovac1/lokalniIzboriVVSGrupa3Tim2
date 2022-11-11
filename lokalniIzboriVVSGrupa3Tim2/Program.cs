@@ -17,6 +17,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             Console.WriteLine("Pozdrav!\nDobrodošli na naš informacioni sistem za lokalne izbore u Sarajevu\nKoja je Vaša uloga? (pritisnite odgovarajuću tipku na tastaturi za izbor):\n1 - Glasac\n2 - Supervizor\n3 - Trenutno stanje na izborima\n0 - izlaz\n");
             int unos = -1; // sigurnost
             unos = Convert.ToInt32(Console.ReadLine());
+            //Dodati while petlju tako da se ne prekine program sve dok se ne izabere izlaz iz programa (0) - Ibrahim Efendic
             if (unos == 0)
             {
                 Console.WriteLine("Hvala Vam!");
@@ -27,7 +28,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 bool postojiGlasac = false;
                 Console.WriteLine("Molim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: ");
                 string jik = Console.ReadLine();
-                Console.WriteLine("Molim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: ");
+                Console.WriteLine("Molim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: "); 
                 Glasac g = null;
                 foreach (Glasac glasac in lokalniIzbori.Glasaci)
                 {
@@ -167,6 +168,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 Console.WriteLine("Dobro dosli! Potvrdite svoj identitet tako sto cete upisati svoju sifru!");
                 if(Console.ReadLine() == "pw")
                 {
+                    //Visak razmak ispred druge opcije prilikom odabira opcija supervizora - Ibrahim Efendic
                     Console.WriteLine("Vi ste supervizor! Supervizor ne moze da manipulise sa glasacima! Izaberite sljedece opcije: \n 1 - Dodaj kandidata \n  2 - Izbrisi kandidata \n 3 - Dodaj stranku \n 4 - Izmijeni stranku \n 5 - Izbrisi stranku \n 6 - Provjeri glasaca");
                     unosSupervizora = Int32.Parse(Console.ReadLine());
                     if (unosSupervizora == 1)
@@ -227,6 +229,8 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     {
                         int redniBrojNaListi = Int32.Parse(Console.ReadLine());
                         bool izbrisan = false;
+                        //Potrebno naznačiti supervizoru po kojem kriteriju se brise kandidat (redni broj na listi) - Ibrahim Efendic
+                        //Potrebna provjera ukoliko unos nije broj, jer dolazi do Unhandled Exception-a - Ibrahim Efendic
                         foreach (Kandidat k in lokalniIzbori.Kandidati)
                         {
                             if (k.BrojNaListi == redniBrojNaListi)
@@ -243,6 +247,8 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     }
                     else if(unosSupervizora == 3)
                     {
+
+                        
                         // unesi stranku
                         string naziv = Console.ReadLine();
 
@@ -296,6 +302,8 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     }
                     else if (unosSupervizora == 5)
                     {
+
+                        //Potrebno naznačiti supervizoru po kojem kriteriju se brise stranka (skraceni naziv) - Ibrahim Efendic
                         // izbrisi stranku
                         string naziv = Console.ReadLine();
                         bool izbrisan = false;

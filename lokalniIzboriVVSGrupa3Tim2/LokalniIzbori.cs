@@ -8,7 +8,10 @@ namespace lokalniIzboriVVSGrupa3Tim2
 {
     public class LokalniIzbori
     {
-        private List<Glasac> glasaci;
+
+        //Potrebno dodati neke dummy podatke radi lakseg testiranja funkcionalnosti aplikacije - Ibrahim Efendic
+
+        private List<Glasac> glasaci; 
         private List<Kandidat> kandidati;
         private List<Glas> glasovi;
         private List<Stranka> stranke;
