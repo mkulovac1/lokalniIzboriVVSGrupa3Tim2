@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks.Dataflow;
@@ -11,8 +12,41 @@ namespace lokalniIzboriVVSGrupa3Tim2
         {
             // Glasac g = new Glasac("Merim", "Kulovac", Convert.ToDateTime("08/28/1999"), "Dzinde 23", "28AJK32S", 2808999170065, Pol.muski);
             // NA NIVOU JEDNE OPCINE ?!
+
+
+            // Neki podaci:
             
+            Glasac g1 = new Glasac("Glasac1", "Proba1", new DateTime(2000, 9, 9), "adresa1", "223456789", 1234567890123, Pol.muski);
+            Glasac g2 = new Glasac("Glasac2", "Proba2", new DateTime(1978, 11, 22), "adresa1", "323456789", 1234567890123, Pol.muski);
+            Glasac g3 = new Glasac("Glasac3", "Proba3", new DateTime(1978, 9, 22), "adresa1", "423456789", 1234567890123, Pol.muski);
+            Glasac g4 = new Glasac("Glasac4", "Proba4", new DateTime(1978, 9, 21), "adresa1", "523456789", 1234567890123, Pol.muski);
+
+            //glprad321222mu
+
+            List<Glasac> glasaci = new List<Glasac>();
+            glasaci.Add(g1);
+            glasaci.Add(g2);
+            glasaci.Add(g3);
+            glasaci.Add(g4);
+
+            Biografija b1 = new Biografija("kandidat1", "proba1", new DateTime(1999, 1, 1), "dasdasdas", "dasdasda", "dadada");
+            Biografija b2 = new Biografija("kandidat2", "proba2", new DateTime(1999, 1, 31), "dasdasdas", "dasdasda", "dadada");
+            Stranka s1 = new Stranka("SDA", "DADASDASDASDSA");
+            Pozicija p1 = new Pozicija(NazivPozicije.nacelnik, "dasdasdsa", 33);
+            Kandidat k1 = new Kandidat(b1, s1, p1, 33);
+            Kandidat k2 = new Kandidat(b2, s1, p1, 11);
+
+            List<Kandidat> kandidati = new List<Kandidat>();
+            kandidati.Add(k1);
+            kandidati.Add(k2);
+
+            
+
+
             LokalniIzbori lokalniIzbori = new LokalniIzbori();
+
+            lokalniIzbori.Glasaci = glasaci;
+            lokalniIzbori.Kandidati = kandidati;
 
             Console.WriteLine("Pozdrav!\nDobrodošli na naš informacioni sistem za lokalne izbore u Sarajevu\nKoja je Vaša uloga? (pritisnite odgovarajuću tipku na tastaturi za izbor):\n1 - Glasac\n2 - Supervizor\n3 - Trenutno stanje na izborima\n0 - izlaz\n");
             int unos = -1; // sigurnost
@@ -28,7 +62,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 bool postojiGlasac = false;
                 Console.WriteLine("Molim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: ");
                 string jik = Console.ReadLine();
-                Console.WriteLine("Molim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: "); 
+                // Console.WriteLine("Molim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: "); 
                 Glasac g = null;
                 foreach (Glasac glasac in lokalniIzbori.Glasaci)
                 {
@@ -36,21 +70,23 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     {
                         postojiGlasac = true;
                         g = glasac;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Niste unijeli dobar JIK ili niste registrovani za glasanje. Pokusajte ponovo.\n");
+                        break;
                     }
                 }
-                if(postojiGlasac)
+
+                if(!postojiGlasac)
+                    Console.WriteLine("Niste unijeli dobar JIK ili niste registrovani za glasanje. Pokusajte ponovo.\n");
+
+
+                if (postojiGlasac)
                 {
-                    Console.WriteLine("Dobrodosli " + g.Ime + " " + g.Prezime + "! U nastavku izaberite sljedeće opcije za glasanje\n 1 - za gradonacelnika\n 2 - za nacelnika \n 3 - glasanje za vijecnika/vijecnike \n 4 - glasanje za stranku");
+                    Console.WriteLine("\nDobrodosli " + g.Ime + " " + g.Prezime + "! U nastavku izaberite sljedeće opcije za glasanje\n 1 - za gradonacelnika\n 2 - za nacelnika \n 3 - glasanje za vijecnika/vijecnike \n 4 - glasanje za stranku");
                     int unosZaGlasanje = Convert.ToInt32(Console.ReadLine());
                     if (unosZaGlasanje == 1)
                     {
                         if (g.GlasaoZaGradonacelnika == false)
                         {
-                            Console.WriteLine("Kandidati za gradonacelnika su: \n");
+                            Console.WriteLine("\nKandidati za gradonacelnika su: \n");
                             foreach (Kandidat gradonacelnik in lokalniIzbori.Kandidati)
                             {
                                 if (gradonacelnik.PozicijaKandidata.NazivPozicije.ToString().Equals("gradonacelnik"))
@@ -82,10 +118,10 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     {
                         if (g.GlasaoZaNacelnika == false) 
                         {
-                            Console.WriteLine("Kandidati za nacelnika su: \n");
+                            Console.WriteLine("\nKandidati za nacelnika su: \n");
                             foreach (Kandidat nacelnik in lokalniIzbori.Kandidati)
                             {
-                                if (nacelnik.PozicijaKandidata.NazivPozicije.ToString().Equals("gradonacelnik"))
+                                if (nacelnik.PozicijaKandidata.NazivPozicije.ToString().Equals("nacelnik"))
                                 {
                                     if (nacelnik.StrankaKandidata != null)
                                         Console.WriteLine(nacelnik.BrojNaListi + " - " + nacelnik.BiografijaKandidata.ImeKandidata + " " + nacelnik.BiografijaKandidata.PrezimeKandidata + " - " + nacelnik.StrankaKandidata.NazivStranke);
@@ -93,6 +129,9 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                         Console.WriteLine(nacelnik.BrojNaListi + " - " + nacelnik.BiografijaKandidata.ImeKandidata + " " + nacelnik.BiografijaKandidata.PrezimeKandidata + " - nezavisni kandidat");
                                 }
                             }
+
+                            Console.WriteLine("\nUnesite redni broj kandidata sa liste: ");
+                            
                             int redniBrojN = Int32.Parse(Console.ReadLine());
                             foreach (Kandidat k in lokalniIzbori.Kandidati)
                             {
@@ -103,12 +142,13 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                     if(k.StrankaKandidata != null)
                                         k.StrankaKandidata.BrojGlasova++;
                                     lokalniIzbori.Glasovi.Add(new Glas(g, k, DateTime.Now));
+                                    Console.WriteLine(g.GlasaoZaNacelnika + " " + k.BrojGlasova);
                                     break;
                                 }
                             }                            
                         }
                         else
-                            Console.WriteLine("Vec ste glasali za nacelnika. Izaberite jednu od preostale dvije opcije!"); // sa ovim se treba pozabaviti kasnije
+                            Console.WriteLine("\nVec ste glasali za nacelnika. Izaberite jednu od preostale dvije opcije!"); // sa ovim se treba pozabaviti kasnije
                     }
                     else if (unosZaGlasanje == 3)
                     {

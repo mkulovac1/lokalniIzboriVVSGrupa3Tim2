@@ -51,7 +51,26 @@ namespace lokalniIzboriVVSGrupa3Tim2
         void FormirajJikGlasaca()
         {
             // ovdje treba formirati jik na nacin da se iz svih gore informacija uzima po dva pocetna karaktera osim spola
-            jik = ime.Substring(0, 2) + prezime.Substring(0, 2) + adresa.Substring(0, 2) + brojLicneKarte.Substring(0, 2) + jmbg.ToString().Substring(0, 2) + datumRodjenja.ToString().Substring(0, 2) + pol.ToString().Substring(0, 2);
+            string dan = "";
+            string mjesec = "";
+            if (datumRodjenja.Day < 10)
+            {
+                dan = "0" + datumRodjenja.Day.ToString();
+            }
+            else
+            {
+                dan = datumRodjenja.Day.ToString();
+            }
+
+            /*if(datumRodjenja.Month < 10)
+            {
+                mjesec = "0" + datumRodjenja.Month.ToString();
+            }
+            else
+            {
+                mjesec = datumRodjenja.Month.ToString();
+             }*/
+            jik = ime.Substring(0, 2) + prezime.Substring(0, 2) + adresa.Substring(0, 2) + brojLicneKarte.Substring(0, 2) + jmbg.ToString().Substring(0, 2) + dan.Substring(0, 2) + pol.ToString().Substring(0, 2);
             jik = jik.ToLower();
         }
     }
