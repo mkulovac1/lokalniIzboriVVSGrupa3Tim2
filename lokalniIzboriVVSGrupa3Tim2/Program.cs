@@ -60,7 +60,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             else if (unos == 1)
             {
                 bool postojiGlasac = false;
-                Console.WriteLine("Molim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: ");
+                Console.WriteLine("\nMolim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: ");
                 string jik = Console.ReadLine();
                 // Console.WriteLine("Molim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: "); 
                 Glasac g = null;
