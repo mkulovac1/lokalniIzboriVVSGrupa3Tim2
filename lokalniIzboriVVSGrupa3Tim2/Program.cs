@@ -40,6 +40,9 @@ namespace lokalniIzboriVVSGrupa3Tim2
             kandidati.Add(k1);
             kandidati.Add(k2);
 
+            List<Stranka> stranke = new List<Stranka>();
+            stranke.Add(s1);
+
 
 
 
@@ -230,16 +233,52 @@ namespace lokalniIzboriVVSGrupa3Tim2
                             string adresa = Console.ReadLine();
 
                             Console.WriteLine("Unesite strucnu spremu kandidata: ");
-                            string ssk = Console.ReadLine();
+                            string strucnaSpremaKandidata = Console.ReadLine();
 
                             Console.WriteLine("Unesite opis kandidata: ");
                             string opis = Console.ReadLine();
 
                             Console.WriteLine("Unesite naziv stranke kandidata (skracenicu): "); // kriticno, moze stranka da ne postoji
-                            string nazivStranke = Console.ReadLine();
+                            string nazivStranke = "";
+
+                            while (true)
+                            {
+                                nazivStranke = Console.ReadLine();
+                                bool temp = false;
+                                foreach (Stranka stranka in stranke)
+                                {
+                                    if (nazivStranke.Equals(stranka.NazivStranke))
+                                    {
+                                        temp = true;
+                                        break;
+                                    }
+                                }
+                                if (temp)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Stranka ne postoji, unesite ponovo naziv stranke: ");
+                                }
+                            }
 
                             Console.WriteLine("Pozicija kandidata (gradonacelnik, nacelnik ili vijecnik): "); // kriticno jer moze unijeti nesto sklj, ne mogu se peglati sa tim
-                            string pozicija = Console.ReadLine();
+                            string pozicija = "";
+
+                            while (true)
+                            {
+                                pozicija = Console.ReadLine();
+                                if (pozicija.Equals("gradonacelnik") || pozicija.Equals("nacelnik") || pozicija.Equals("vijecnik"))
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Neispravan unos, molimo vas unesite jednu od pozicija (gradonacelnik, nacelnik ili vijecnik): ");
+                                }
+                            }
+
                             NazivPozicije poz = NazivPozicije.vijecnik; //
                             if (pozicija == "vijecnik")
                                 poz = NazivPozicije.vijecnik;
@@ -261,7 +300,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                 }
                             }
 
-                            Biografija b = new Biografija(ime, prezime, DateTime.Parse(datumString), adresa, ssk, opis);
+                            Biografija b = new Biografija(ime, prezime, DateTime.Parse(datumString), adresa, strucnaSpremaKandidata, opis);
 
                             Pozicija p = new Pozicija(poz, "", broj);
 
