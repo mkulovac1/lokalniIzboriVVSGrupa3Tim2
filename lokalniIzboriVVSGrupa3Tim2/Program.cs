@@ -8,6 +8,10 @@ namespace lokalniIzboriVVSGrupa3Tim2
 {
     public class Program
     {
+        static String getPassword()
+        {
+            return Encoding.UTF8.GetString(Convert.FromBase64String("cHc="));
+        }
         static void Main(string[] args)
         {
             // Glasac g = new Glasac("Merim", "Kulovac", Convert.ToDateTime("08/28/1999"), "Dzinde 23", "28AJK32S", 2808999170065, Pol.muski);
@@ -104,10 +108,10 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                             Console.WriteLine(gradonacelnik.BrojNaListi + " - " + gradonacelnik.BiografijaKandidata.ImeKandidata + " " + gradonacelnik.BiografijaKandidata.PrezimeKandidata + " - nezavisni kandidat");
                                     }
                                 }
-                                int redniBrojG = Int32.Parse(Console.ReadLine());
+                                int redniBrojGradonacelnika = Int32.Parse(Console.ReadLine());
                                 foreach (Kandidat k in lokalniIzbori.Kandidati)
                                 {
-                                    if (k.BrojNaListi == redniBrojG)
+                                    if (k.BrojNaListi == redniBrojGradonacelnika)
                                     {
                                         g.GlasaoZaGradonacelnika = true; // zbog neznanja da li je ovo duboka kopija ili nije mora se provjeriti da li ce ovaj glasac promijeniti sebe u listi glasaci u klasi lokalniizbori
                                         k.BrojGlasova++;
@@ -213,7 +217,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     int unosSupervizora = -1;
                     // supervizor ili admin sta vec
                     Console.WriteLine("Dobro dosli! Potvrdite svoj identitet tako sto cete upisati svoju sifru!");
-                    if (Console.ReadLine() == "pw")
+                    if (Console.ReadLine() == getPassword())
                     {
                         //Visak razmak ispred druge opcije prilikom odabira opcija supervizora - Ibrahim Efendic
                         Console.WriteLine("Vi ste supervizor! Supervizor ne moze da manipulise sa glasacima! Izaberite sljedece opcije: \n 1 - Dodaj kandidata \n  2 - Izbrisi kandidata \n 3 - Dodaj stranku \n 4 - Izmijeni stranku \n 5 - Izbrisi stranku \n 6 - Provjeri glasaca");
@@ -463,7 +467,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     lokalniIzbori.Kandidati.Sort((k1, k2) => k1.BrojGlasova.CompareTo(k2.BrojGlasova));
 
                     Console.WriteLine("Gradonacelnik je: ");
-                    Kandidat x = null;
+                    Kandidat kand = null;
                     int brojacMjesta = 0;
                     foreach (Kandidat k in lokalniIzbori.Kandidati)
                     {
@@ -471,12 +475,12 @@ namespace lokalniIzboriVVSGrupa3Tim2
                         {
                             // Console.WriteLine(k.BiografijaKandidata.ImeKandidata + " " + k.BiografijaKandidata.PrezimeKandidata + " stranka: " + k.StrankaKandidata.NazivStranke + ", broj glasova: " + k.BrojGlasova + "\n");
                             // break;
-                            x = lokalniIzbori.Kandidati.ElementAt(0);
+                            kand = lokalniIzbori.Kandidati.ElementAt(0);
                             k.RedniBrojOsvojenogMjesta = brojacMjesta + 1;
                         }
                     }
 
-                    Console.WriteLine(x.BiografijaKandidata.ImeKandidata + " " + x.BiografijaKandidata.PrezimeKandidata + " stranka: " + x.StrankaKandidata.NazivStranke + ", broj glasova: " + x.BrojGlasova + "\n");
+                    Console.WriteLine(kand.BiografijaKandidata.ImeKandidata + " " + kand.BiografijaKandidata.PrezimeKandidata + " stranka: " + kand.StrankaKandidata.NazivStranke + ", broj glasova: " + kand.BrojGlasova + "\n");
 
                     brojacMjesta = 0;
                     Console.WriteLine("Nacelnik je: ");
@@ -486,12 +490,12 @@ namespace lokalniIzboriVVSGrupa3Tim2
                         {
                             // Console.WriteLine(k.BiografijaKandidata.ImeKandidata + " " + k.BiografijaKandidata.PrezimeKandidata + " stranka: " + k.StrankaKandidata.NazivStranke + ", broj glasova: " + k.BrojGlasova + "\n");
                             // break;
-                            x = lokalniIzbori.Kandidati.ElementAt(0);
+                            kand = lokalniIzbori.Kandidati.ElementAt(0);
                             k.RedniBrojOsvojenogMjesta = brojacMjesta + 1;
                         }
                     }
 
-                    Console.WriteLine(x.BiografijaKandidata.ImeKandidata + " " + x.BiografijaKandidata.PrezimeKandidata + " stranka: " + x.StrankaKandidata.NazivStranke + ", broj glasova: " + x.BrojGlasova + "\n");
+                    Console.WriteLine(kand.BiografijaKandidata.ImeKandidata + " " + kand.BiografijaKandidata.PrezimeKandidata + " stranka: " + kand.StrankaKandidata.NazivStranke + ", broj glasova: " + kand.BrojGlasova + "\n");
 
                     brojacMjesta = 0;
                     Console.WriteLine("Rezultati vijecnika: ");
