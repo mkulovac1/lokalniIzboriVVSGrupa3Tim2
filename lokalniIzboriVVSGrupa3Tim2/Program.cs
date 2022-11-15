@@ -59,6 +59,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             }
             else if (unos == 1)
             {
+                
                 bool postojiGlasac = false;
                 Console.WriteLine("\nMolim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: ");
                 string jik = Console.ReadLine();
@@ -219,7 +220,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                         Console.WriteLine("Unesite prezime kandidata: ");
                         string prezime = Console.ReadLine();
                        
-                        Console.WriteLine("Unesite datum rodjenja: ");
+                        Console.WriteLine("Unesite datum rodjenja:  ");
                         string datumString = Console.ReadLine();
                         
                         Console.WriteLine("Unesite adresu kandidata: ");
@@ -364,7 +365,8 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     }
                     else if (unosSupervizora == 6)
                     {
-                        Console.WriteLine("Unesite JIK glasaca: ");
+                        bool pronadjiJik = false;
+                            Console.WriteLine("Unesite JIK glasaca: ");
                         string jik = Console.ReadLine();
                         foreach (Glasac glasac in lokalniIzbori.Glasaci)
                         {
