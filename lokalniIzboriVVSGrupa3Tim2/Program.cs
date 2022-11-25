@@ -8,10 +8,11 @@ namespace lokalniIzboriVVSGrupa3Tim2
 {
     public class Program
     {
-        static String getPassword()
+        /*static String getPassword()
         {
             return Encoding.UTF8.GetString(Convert.FromBase64String("cHc="));
-        }
+        }*/
+        
         static void Main(string[] args)
         {
             // Glasac g = new Glasac("Merim", "Kulovac", Convert.ToDateTime("08/28/1999"), "Dzinde 23", "28AJK32S", 2808999170065, Pol.muski);
@@ -217,7 +218,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     int unosSupervizora = -1;
                     // supervizor ili admin sta vec
                     Console.WriteLine("Dobro dosli! Potvrdite svoj identitet tako sto cete upisati svoju sifru!");
-                    if (Console.ReadLine() == getPassword())
+                    if (Console.ReadLine() == "faliencodingemire")
                     {
                         //Visak razmak ispred druge opcije prilikom odabira opcija supervizora - Ibrahim Efendic
                         Console.WriteLine("Vi ste supervizor! Supervizor ne moze da manipulise sa glasacima! Izaberite sljedece opcije: \n 1 - Dodaj kandidata \n  2 - Izbrisi kandidata \n 3 - Dodaj stranku \n 4 - Izmijeni stranku \n 5 - Izbrisi stranku \n 6 - Provjeri glasaca");
