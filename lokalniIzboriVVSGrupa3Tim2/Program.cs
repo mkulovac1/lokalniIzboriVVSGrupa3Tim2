@@ -21,18 +21,18 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
             // Neki podaci:
 
-            Glasac g1 = new Glasac("Glasac1", "Proba1", new DateTime(2000, 9, 9), "adresa1", "223456789", 1234567890123, Pol.muski);
-            Glasac g2 = new Glasac("Glasac2", "Proba2", new DateTime(1978, 11, 22), "adresa1", "323456789", 1234567890123, Pol.muski);
-            Glasac g3 = new Glasac("Glasac3", "Proba3", new DateTime(1978, 9, 22), "adresa1", "423456789", 1234567890123, Pol.muski);
-            Glasac g4 = new Glasac("Glasac4", "Proba4", new DateTime(1978, 9, 21), "adresa1", "523456789", 1234567890123, Pol.muski);
+            Glasac g1 = new Glasac("Glasac", "Proba", new DateTime(2000, 9, 9), "adresa 23", "999T999", "0909000170065", Pol.muski); // ispravan glasac
+            //Glasac g2 = new Glasac("Glasac2", "Proba2", new DateTime(1978, 11, 22), "adresa1", "323456789", 1234567890123, Pol.muski); // neispravni
+            //Glasac g3 = new Glasac("Glasac3", "Proba3", new DateTime(1978, 9, 22), "adresa1", "423456789", 1234567890123, Pol.muski);
+            //Glasac g4 = new Glasac("Glasac4", "Proba4", new DateTime(1978, 9, 21), "adresa1", "523456789", 1234567890123, Pol.muski);
 
             //glprad321222mu
 
             List<Glasac> glasaci = new List<Glasac>();
-            glasaci.Add(g1);
+            /*glasaci.Add(g1);
             glasaci.Add(g2);
             glasaci.Add(g3);
-            glasaci.Add(g4);
+            glasaci.Add(g4);*/
 
             Biografija b1 = new Biografija("kandidat1", "proba1", new DateTime(1999, 1, 1), "dasdasdas", "dasdasda", "dadada");
             Biografija b2 = new Biografija("kandidat2", "proba2", new DateTime(1999, 1, 31), "dasdasdas", "dasdasda", "dadada");

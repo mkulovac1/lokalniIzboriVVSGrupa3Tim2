@@ -16,14 +16,14 @@ namespace lokalniIzboriVVSGrupa3Tim2
         private string adresa;
         private string brojLicneKarte;
         private string jik; // jik - jedinstveni identifikacioni kod (sadrzi prva dva karaktera svih podataka o korisniku)
-        private long jmbg;
+        private string jmbg;
         private DateTime datumRodjenja;
         private Pol pol;
         private bool glasaoZaGradonacelnika = false;
         private bool glasaoZaNacelnika = false;
         private bool glasaoZaVijecnika = false;
 
-        public Glasac(String ime, String prezime, DateTime datumRodjenja, String adresa, String brojLicneKarte, long jmbg, Pol pol)
+        public Glasac(String ime, String prezime, DateTime datumRodjenja, String adresa, String brojLicneKarte, string jmbg, Pol pol)
         {
             ProvjeraImena(ime);
             this.ime = ime;
@@ -165,20 +165,21 @@ namespace lokalniIzboriVVSGrupa3Tim2
             }
         }
 
-        private void ProvjeraJmbg(long jmbg)
+        private void ProvjeraJmbg(string jmbg)
         {
             // potrebno je samo provjeriti prvih 7 brojeva tj da li su jednaki datumu, prva cifra godine se ne gleda vec preostale 3:
             if (jmbg == null)
                 throw new ArgumentNullException("Glasač mora imati JMBG - JMBG ne smije biti NULL!");
 
-            // foreach(char c in jmbg.ToString().ToCharArray())
-            //{
-            //    if (!Char.IsDigit(c))
-            //        throw new ArgumentException("JMBG mora sadržavati samo brojeve!");
-            //} // ne treba gledati jer je JMBG tipa long!
-
-            if (jmbg.ToString().Length != 13)
+            if (jmbg.Length != 13)
                 throw new ArgumentException("JMBG mora imati tačno 13 brojeva!");
+
+            foreach(char c in jmbg.ToCharArray())
+            {
+                 if (!Char.IsDigit(c))
+                    throw new ArgumentException("JMBG mora sadržavati samo brojeve!");
+            }
+
 
             string dan = "";
             if (datumRodjenja.Day < 10)
@@ -189,7 +190,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             {
                 dan = datumRodjenja.Day.ToString();
             }
-
+            
             string mjesec = "";
             if (datumRodjenja.Month < 10)
             {
@@ -203,7 +204,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             string godina = datumRodjenja.Year.ToString().Remove(0, 1);
 
             // string top = dan + mjesec + godina;
-            if (jmbg.ToString().Substring(0, 2) != dan || jmbg.ToString().Substring(2, 2) != mjesec || jmbg.ToString().Substring(4, 3) != godina)
+            if (jmbg.Substring(0, 2) != dan || jmbg.Substring(2, 2) != mjesec || jmbg.Substring(4, 3) != godina) // 2808999
                 throw new ArgumentException("Prvih 7 cifara JMBG moraju biti jednake datumu rođenja!");
         }
 
@@ -262,7 +263,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 brojLicneKarte = value;
             }
         }
-        public long Jmbg
+        public string Jmbg
         {
             get => jmbg;
             set
@@ -310,7 +311,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 dan = datumRodjenja.Day.ToString();
             }
 
-            jik = ime.Substring(0, 2) + prezime.Substring(0, 2) + adresa.Substring(0, 2) + brojLicneKarte.Substring(0, 2) + jmbg.ToString().Substring(0, 2) + dan.Substring(0, 2);
+            jik = ime.Substring(0, 2) + prezime.Substring(0, 2) + adresa.Substring(0, 2) + brojLicneKarte.Substring(0, 2) + jmbg.Substring(0, 2) + dan.Substring(0, 2);
             jik = jik.ToLower();
         }
     }
