@@ -12,6 +12,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
         private string opisStranke;
         private int brojGlasova;
         private int redniBrojMjesta;
+        private List<Kandidat> rukovodstvo;
 
         public Stranka(string nazivStranke, string opisStranke)
         {
@@ -19,11 +20,13 @@ namespace lokalniIzboriVVSGrupa3Tim2
             this.opisStranke = opisStranke;
             brojGlasova = 0;
             redniBrojMjesta = 0;
+            rukovodstvo = new List<Kandidat>();
         }
 
         public string NazivStranke { get => nazivStranke; set => nazivStranke = value; }
         public string OpisStranke { get => opisStranke; set => opisStranke = value; }
         public int BrojGlasova { get => brojGlasova; set => brojGlasova = value; }
         public int RedniBrojMjesta { get => redniBrojMjesta; set => redniBrojMjesta = value; }
+        public List<Kandidat> Rukovodstvo { get => rukovodstvo; set => rukovodstvo = value; }
     }
 }

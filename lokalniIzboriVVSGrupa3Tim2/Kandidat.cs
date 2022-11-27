@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace lokalniIzboriVVSGrupa3Tim2
 {
-    public class Kandidat
+    public class Kandidat : Glasac
     {
         private Biografija biografijaKandidata;
         private Stranka strankaKandidata;
@@ -15,7 +15,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
         private int redniBrojOsvojenogMjesta;
         private int brojNaListi;
 
-        public Kandidat(Biografija biografijaKandidata, Stranka strankaKandidata, Pozicija pozicijaKandidata, int brojNaListi)
+        public Kandidat(String ime, String prezime, DateTime datumRodjenja, String adresa, String brojLicneKarte, string jmbg, Pol pol, Biografija biografijaKandidata, Stranka strankaKandidata, Pozicija pozicijaKandidata, int brojNaListi) : base(ime,prezime,datumRodjenja,adresa,brojLicneKarte,jmbg,pol)
         {
             this.biografijaKandidata = biografijaKandidata;
             this.StrankaKandidata = strankaKandidata;

@@ -21,25 +21,25 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
             // Neki podaci:
 
-            Glasac g1 = new Glasac("Glasac", "Proba", new DateTime(2000, 9, 9), "adresa 23", "999T999", "0909000170065", Pol.muski); // ispravan glasac
-            //Glasac g2 = new Glasac("Glasac2", "Proba2", new DateTime(1978, 11, 22), "adresa1", "323456789", 1234567890123, Pol.muski); // neispravni
-            //Glasac g3 = new Glasac("Glasac3", "Proba3", new DateTime(1978, 9, 22), "adresa1", "423456789", 1234567890123, Pol.muski);
-            //Glasac g4 = new Glasac("Glasac4", "Proba4", new DateTime(1978, 9, 21), "adresa1", "523456789", 1234567890123, Pol.muski);
+            Glasac g1 = new Glasac("Neko", "Nekić", new DateTime(2000, 9, 9), "adresa 23", "999T999", "0909000170065", Pol.muski); // ispravan glasac
+            Glasac g2 = new Glasac("Pero", "Perić", new DateTime(1978, 11, 22), "adresa1", "323E789", "2211978890123", Pol.muski); // neispravni
+            Glasac g3 = new Glasac("Mera", "Merić", new DateTime(1978, 9, 22), "adresa1", "423J459", "2209978890123", Pol.muski);
+            Glasac g4 = new Glasac("Ibri", "Ibrić", new DateTime(1978, 9, 21), "adresa1", "523K489", "2109978890123", Pol.muski);
 
             //glprad321222mu
 
             List<Glasac> glasaci = new List<Glasac>();
-            /*glasaci.Add(g1);
+            glasaci.Add(g1);
             glasaci.Add(g2);
             glasaci.Add(g3);
-            glasaci.Add(g4);*/
+            glasaci.Add(g4);
 
             Biografija b1 = new Biografija("kandidat1", "proba1", new DateTime(1999, 1, 1), "dasdasdas", "dasdasda", "dadada");
             Biografija b2 = new Biografija("kandidat2", "proba2", new DateTime(1999, 1, 31), "dasdasdas", "dasdasda", "dadada");
             Stranka s1 = new Stranka("SDA", "DADASDASDASDSA");
             Pozicija p1 = new Pozicija(NazivPozicije.nacelnik, "dasdasdsa", 33);
-            Kandidat k1 = new Kandidat(b1, s1, p1, 33);
-            Kandidat k2 = new Kandidat(b2, s1, p1, 11);
+            Kandidat k1 = new Kandidat("Isko", "Iskić", new DateTime(2000, 9, 9), "adresa 23", "999T999", "0909000170065", Pol.muski,b1, s1, p1, 33);
+            Kandidat k2 = new Kandidat("Neda", "Nedić", new DateTime(1978, 11, 22), "adresa1", "323E789", "2211978890123", Pol.muski, b2, s1, p1, 11);
 
             List<Kandidat> kandidati = new List<Kandidat>();
             kandidati.Add(k1);
@@ -231,11 +231,37 @@ namespace lokalniIzboriVVSGrupa3Tim2
                             Console.WriteLine("Unesite prezime kandidata: ");
                             string prezime = Console.ReadLine();
 
-                            Console.WriteLine("Unesite datum rodjenja:  ");
-                            string datumString = Console.ReadLine();
+                            Console.WriteLine("Unesite godinu rodjenja:  ");
+                            string godinaString = Console.ReadLine();
+
+                            Console.WriteLine("Unesite mjesec rodjenja:  ");
+                            string mjesecString = Console.ReadLine();
+
+                            Console.WriteLine("Unesite dan rodjenja:  ");
+                            string danString = Console.ReadLine();
 
                             Console.WriteLine("Unesite adresu kandidata: ");
                             string adresa = Console.ReadLine();
+
+                            Console.WriteLine("Unesite broj licne karte kandidata: ");
+                            string brojLicneKarte = Console.ReadLine();
+
+                            Console.WriteLine("Unesite jmbg kandidata: ");
+                            string jmbg = Console.ReadLine();
+
+                            Console.WriteLine("Unesite pol kandidata (muški - M, ženski - Ž): ");
+                            string polString = Console.ReadLine();
+
+                            Pol pol= new Pol();
+
+                            if (polString.Equals("M"))
+                            {
+                                pol = Pol.muski;
+                            }
+                            else if (polString.Equals("Ž"))
+                            {
+                                pol = Pol.zenski;
+                            }
 
                             Console.WriteLine("Unesite strucnu spremu kandidata: ");
                             string strucnaSpremaKandidata = Console.ReadLine();
@@ -305,11 +331,17 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                 }
                             }
 
-                            Biografija b = new Biografija(ime, prezime, DateTime.Parse(datumString), adresa, strucnaSpremaKandidata, opis);
+                            int godina = Int32.Parse(godinaString);
+                            int mjesec = Int32.Parse(mjesecString);
+                            int dan = Int32.Parse(danString);
+
+                            DateTime datum = new DateTime(godina, mjesec, dan);
+
+                            Biografija b = new Biografija(ime, prezime, datum, adresa, strucnaSpremaKandidata, opis);
 
                             Pozicija p = new Pozicija(poz, "", broj);
 
-                            lokalniIzbori.Kandidati.Add(new Kandidat(b, s, p, broj));
+                            lokalniIzbori.Kandidati.Add(new Kandidat(ime, prezime, datum, adresa, brojLicneKarte, jmbg, pol, b, s, p, broj));
 
                             Console.WriteLine("Kandidat uspjesno dodan!");
                         }
@@ -516,6 +548,22 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     {
                         Console.WriteLine(s.NazivStranke + " broj glasova: " + s.BrojGlasova + "\n");
                         s.RedniBrojMjesta = brojacMjesta + 1;
+                    }
+
+                    Console.WriteLine("Informacije o ukupnom broju glasova za kandidate koji su i članovi rukovodstva svoje stranke: ");
+                    foreach (Stranka s in lokalniIzbori.Stranke)
+                    {
+                        Console.WriteLine("Naziv stranke: " + s.NazivStranke);
+                        int ukupnoGlasova = 0;
+                        foreach (Kandidat k in s.Rukovodstvo)
+                        {
+                            ukupnoGlasova = ukupnoGlasova + k.BrojGlasova;
+                        }
+                        Console.WriteLine("Ukupan broj glasova: " + ukupnoGlasova + "\nKandidati: ");
+                        foreach (Kandidat k in s.Rukovodstvo)
+                        {
+                            Console.WriteLine("Identifikacioni broj: " + k.Jik);
+                        }
                     }
                 }
             }
