@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace lokalniIzboriVVSGrupa3Tim2
 {
@@ -109,11 +104,12 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
         private void ProvjeraAdrese(string adresa)
         {
-            adresa = adresa.TrimStart(); // ovim se obezbjedjuje da ne unesemo samo praznine / razmake
-            adresa = adresa.TrimEnd();
-
+            // mora se prvo provjeriti da li je adresa null pa onda trimovati...
             if (adresa == null)
                 throw new ArgumentNullException("Glasač mora imati adresu - adresa ne smije biti NULL!");
+
+            adresa = adresa.TrimStart(); // ovim se obezbjedjuje da ne unesemo samo praznine / razmake
+            adresa = adresa.TrimEnd();
 
             if (adresa.Length == 0)
                 throw new ArgumentException("Adresa ne može biti prazna riječ!");
@@ -133,12 +129,13 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
         private void ProvjeraBrojaLicneKarte(string brojLicneKarte)
         {
+            // prvo provjera null, pa onda trim...
+            if (brojLicneKarte == null)
+                throw new ArgumentNullException("Glasač mora imati broj lične karte - broj lične karte ne smije biti NULL!");
+              
             brojLicneKarte = brojLicneKarte.ToUpper();
             brojLicneKarte = brojLicneKarte.TrimStart(); // moze se desiti da se greskom unese razmak na kraju ili pocetku...
             brojLicneKarte = brojLicneKarte.TrimEnd();
-
-            if (brojLicneKarte == null)
-                throw new ArgumentNullException("Glasač mora imati broj lične karte - broj lične karte ne smije biti NULL!");
 
             if (brojLicneKarte.Length != 7)
                 throw new ArgumentException("Broj lične karte mora imati tačno 9 karaktera!");
@@ -174,9 +171,9 @@ namespace lokalniIzboriVVSGrupa3Tim2
             if (jmbg.Length != 13)
                 throw new ArgumentException("JMBG mora imati tačno 13 brojeva!");
 
-            foreach(char c in jmbg.ToCharArray())
+            foreach (char c in jmbg.ToCharArray())
             {
-                 if (!Char.IsDigit(c))
+                if (!Char.IsDigit(c))
                     throw new ArgumentException("JMBG mora sadržavati samo brojeve!");
             }
 
@@ -190,7 +187,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             {
                 dan = datumRodjenja.Day.ToString();
             }
-            
+
             string mjesec = "";
             if (datumRodjenja.Month < 10)
             {
@@ -208,7 +205,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 throw new ArgumentException("Prvih 7 cifara JMBG moraju biti jednake datumu rođenja!");
         }
 
-        void ProvjeriJIK(string jik)
+        public void ProvjeriJIK(string jik)
         {
             jik.ToLower();
             string dan = "";
@@ -222,10 +219,11 @@ namespace lokalniIzboriVVSGrupa3Tim2
             }
 
             if (jik.Substring(0, 2) != ime.Substring(0, 2).ToLower() || jik.Substring(2, 2) != prezime.Substring(0, 2).ToLower() || jik.Substring(4, 2) != adresa.Substring(0, 2).ToLower() || jik.Substring(6, 2) != brojLicneKarte.Substring(0, 2) || jik.Substring(8, 2) != jmbg.ToString().Substring(0, 2) || jik.Substring(10, 2) != dan)
-                throw new ArgumentException("JIK nije ispravan!");      
+                throw new ArgumentException("JIK nije ispravan!");
         }
 
         // potrebno je validaciju dodati i u setterima iako nije naglašeno!
+        // posto se JIK sastoji od ovih podataka, potrebno je napraviti novi JIK ?!
         public string Ime
         {
             get => ime;
@@ -234,6 +232,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             {
                 ProvjeraImena(value);
                 ime = value;
+                FormirajJikGlasaca();
             }
         }
         public string Prezime
@@ -243,6 +242,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             {
                 ProvjeraPrezimena(value);
                 prezime = value;
+                FormirajJikGlasaca();
             }
         }
         public string Adresa
@@ -252,6 +252,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             {
                 ProvjeraAdrese(value);
                 adresa = value;
+                FormirajJikGlasaca();
             }
         }
         public string BrojLicneKarte
@@ -261,6 +262,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             {
                 ProvjeraBrojaLicneKarte(value);
                 brojLicneKarte = value;
+                FormirajJikGlasaca();
             }
         }
         public string Jmbg
@@ -270,15 +272,18 @@ namespace lokalniIzboriVVSGrupa3Tim2
             {
                 ProvjeraJmbg(value);
                 jmbg = value;
+                FormirajJikGlasaca();
             }
         }
-        public DateTime DatumRodjenja
+        public DateTime DatumRodjenja // ovdje bi trebalo mijenjati i JMBG jer se mijenja datum rodjenja, a on je sastavni dio JMBG-a
         {
             get => datumRodjenja;
             set
             {
                 ProvjeraDatumaRodjenja(value);
                 datumRodjenja = value;
+                PromijeniJmbg(datumRodjenja);
+                FormirajJikGlasaca();
             }
         }
         public string Jik
@@ -314,6 +319,37 @@ namespace lokalniIzboriVVSGrupa3Tim2
             jik = ime.Substring(0, 2) + prezime.Substring(0, 2) + adresa.Substring(0, 2) + brojLicneKarte.Substring(0, 2) + jmbg.Substring(0, 2) + dan.Substring(0, 2);
             jik = jik.ToLower();
         }
+
+
+        private void PromijeniJmbg(DateTime datumRodjenja)
+        {
+            string dan = "";
+            if (datumRodjenja.Day < 10)
+            {
+                dan = "0" + datumRodjenja.Day.ToString();
+            }
+            else
+            {
+                dan = datumRodjenja.Day.ToString();
+            }
+
+            string mjesec = "";
+            if (datumRodjenja.Month < 10)
+            {
+                mjesec = "0" + datumRodjenja.Month.ToString();
+            }
+            else
+            {
+                mjesec = datumRodjenja.Month.ToString();
+            }
+
+            string godina = datumRodjenja.Year.ToString().Remove(0, 1);
+
+            string noviJmbg = dan + mjesec + godina + jmbg.Substring(7, 6);
+
+            jmbg = noviJmbg;
+        }
+        
     }
 }
 
