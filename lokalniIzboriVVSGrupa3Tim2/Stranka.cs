@@ -28,5 +28,22 @@ namespace lokalniIzboriVVSGrupa3Tim2
         public int BrojGlasova { get => brojGlasova; set => brojGlasova = value; }
         public int RedniBrojMjesta { get => redniBrojMjesta; set => redniBrojMjesta = value; }
         public List<Kandidat> Rukovodstvo { get => rukovodstvo; set => rukovodstvo = value; }
+
+        public string PrikazRezultataRukovodstva() 
+        {
+            string ispis = "";
+            ispis = ispis + "Naziv stranke: " + nazivStranke;
+            int ukupnoGlasova = 0;
+            foreach (Kandidat k in rukovodstvo)
+            {
+                ukupnoGlasova = ukupnoGlasova + k.BrojGlasova;
+            }
+            ispis = ispis + "\nUkupan broj glasova: " + ukupnoGlasova + "\nKandidati: ";
+            foreach (Kandidat k in rukovodstvo)
+            {
+                ispis = ispis + "\nIdentifikacioni broj: " + k.Jik;
+            }
+            return ispis;
+        }
     }
 }

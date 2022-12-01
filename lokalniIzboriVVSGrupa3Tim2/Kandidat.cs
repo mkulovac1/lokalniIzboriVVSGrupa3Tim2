@@ -17,10 +17,10 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
         public Kandidat(String ime, String prezime, DateTime datumRodjenja, String adresa, String brojLicneKarte, string jmbg, Pol pol, Biografija biografijaKandidata, Stranka strankaKandidata, Pozicija pozicijaKandidata, int brojNaListi) : base(ime,prezime,datumRodjenja,adresa,brojLicneKarte,jmbg,pol)
         {
-            this.biografijaKandidata = biografijaKandidata;
+            this.BiografijaKandidata = biografijaKandidata;
             this.StrankaKandidata = strankaKandidata;
             this.PozicijaKandidata = pozicijaKandidata;
-            this.brojNaListi = brojNaListi;
+            this.BrojNaListi = brojNaListi;
             BrojGlasova = 0;
             RedniBrojOsvojenogMjesta = 0;
         }

@@ -553,17 +553,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     Console.WriteLine("Informacije o ukupnom broju glasova za kandidate koji su i članovi rukovodstva svoje stranke: ");
                     foreach (Stranka s in lokalniIzbori.Stranke)
                     {
-                        Console.WriteLine("Naziv stranke: " + s.NazivStranke);
-                        int ukupnoGlasova = 0;
-                        foreach (Kandidat k in s.Rukovodstvo)
-                        {
-                            ukupnoGlasova = ukupnoGlasova + k.BrojGlasova;
-                        }
-                        Console.WriteLine("Ukupan broj glasova: " + ukupnoGlasova + "\nKandidati: ");
-                        foreach (Kandidat k in s.Rukovodstvo)
-                        {
-                            Console.WriteLine("Identifikacioni broj: " + k.Jik);
-                        }
+                        Console.WriteLine(s.PrikazRezultataRukovodstva());
                     }
                 }
             }
