@@ -1,7 +1,11 @@
-﻿using lokalniIzboriVVSGrupa3Tim2;
+﻿using CsvHelper;
+using lokalniIzboriVVSGrupa3Tim2;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 
 namespace StrankaTest
 {
@@ -49,6 +53,37 @@ namespace StrankaTest
             Assert.AreEqual("Probaaa", s.OpisStranke);
             Assert.AreEqual(200, s.BrojGlasova);
             Assert.AreEqual(30, s.RedniBrojMjesta);
+        }
+
+        public static IEnumerable<object[]> UcitajPodatkeCSV()
+        {
+            using (var reader = new StreamReader("stranke.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var rows = csv.GetRecords<dynamic>();
+                foreach (var row in rows)
+                {
+                    var values = ((IDictionary<String, Object>)row).Values;
+                    var elements = values.Select(elem => elem.ToString()).ToList();
+                    yield return new object[] { elements[0], elements[1] };
+                }
+            }
+        }
+
+        static IEnumerable<object[]> StrankeCsv
+        {
+            get
+            {
+                return UcitajPodatkeCSV();
+            }
+        }
+
+
+        [TestMethod]
+        [DynamicData("StrankeCsv")]
+        public void TestKonstruktoraStrankeCsv(string naziv, string opis)
+        {
+            Stranka s = new Stranka(naziv, opis);
         }
     }
 }

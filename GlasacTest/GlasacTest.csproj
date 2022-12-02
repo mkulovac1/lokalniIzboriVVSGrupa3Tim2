@@ -17,4 +17,10 @@
     <ProjectReference Include="..\lokalniIzboriVVSGrupa3Tim2\lokalniIzboriVVSGrupa3Tim2.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="glasaci.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,11 @@
-﻿using lokalniIzboriVVSGrupa3Tim2;
+﻿using CsvHelper;
+using lokalniIzboriVVSGrupa3Tim2;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 
 namespace KandidatTest
 {
