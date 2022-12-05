@@ -26,6 +26,8 @@ namespace lokalniIzboriVVSGrupa3Tim2
             Glasac g3 = new Glasac("Mera", "Merić", new DateTime(1978, 9, 22), "adresa1", "423J459", "2209978890123", Pol.muski);
             Glasac g4 = new Glasac("Ibri", "Ibrić", new DateTime(1978, 9, 21), "adresa1", "523K489", "2109978890123", Pol.muski);
 
+            
+
             //glprad321222mu
 
             List<Glasac> glasaci = new List<Glasac>();
@@ -56,6 +58,8 @@ namespace lokalniIzboriVVSGrupa3Tim2
             lokalniIzbori.Glasaci = glasaci;
             lokalniIzbori.Kandidati = kandidati;
 
+            
+            
             Console.WriteLine("Pozdrav!\nDobrodošli na naš informacioni sistem za lokalne izbore u Sarajevu\nKoja je Vaša uloga? (pritisnite odgovarajuću tipku na tastaturi za izbor):\n1 - Glasac\n2 - Supervizor\n3 - Trenutno stanje na izborima\n0 - izlaz\n");
             int unos = -1; // sigurnost
             unos = Convert.ToInt32(Console.ReadLine());
@@ -92,7 +96,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
                     if (postojiGlasac)
                     {
-                        Console.WriteLine("\nDobrodosli " + g.Ime + " " + g.Prezime + "! U nastavku izaberite sljedeće opcije za glasanje\n 1 - za gradonacelnika\n 2 - za nacelnika \n 3 - glasanje za vijecnika/vijecnike \n 4 - glasanje za stranku");
+                        Console.WriteLine("\nDobrodosli " + g.Ime + " " + g.Prezime + "! U nastavku izaberite sljedeće opcije za glasanje\n 1 - za gradonacelnika\n 2 - za nacelnika \n 3 - glasanje za vijecnika/vijecnike \n 4 - glasanje za stranku \n 5 - reset informacija o glasanju" );
                         int unosZaGlasanje = Convert.ToInt32(Console.ReadLine());
                         if (unosZaGlasanje == 1)
                         {
@@ -210,7 +214,45 @@ namespace lokalniIzboriVVSGrupa3Tim2
                             {
                                 Console.WriteLine("Ne moze se glasati za stranku ukoliko ste vec glasali za vijecnike!");
                             }
+                        } else if(unosZaGlasanje == 5)
+                    {
+                        int brojGresaka = 0;
+                        bool validanJik = false;
+                        while (brojGresaka < 3)
+                        {
+                            Console.WriteLine("\nMolim vas da unesete vas JEDINSTVENI IDENTIFIKACIONI KOD: ");
+                            string jik = Console.ReadLine();
+
+                            foreach (Glasac glasac in lokalniIzbori.Glasaci)
+                            {
+                                if (jik.Equals(glasac.Jik))
+                                {
+                                    validanJik = true;
+                                    g = glasac;
+                                    break;
+                                }
+                            }
+                            Console.WriteLine("\nUnesite tajnu sifru");
+                                string tajnaSifra = Console.ReadLine();
+                            if (validanJik && tajnaSifra == "VVS20222023") break;
+                            
+                            else brojGresaka++;
                         }
+                        if (brojGresaka == 3)
+                        {
+                            Console.WriteLine("\nPogrijesili ste 3 puta JIK i sifru!");
+                            Environment.Exit(1);
+                        }
+                        else
+                        {
+                            g.GlasaoZaGradonacelnika = false;
+                            g.GlasaoZaNacelnika = false;
+                            g.GlasaoZaVijecnika = false;
+
+
+                        }
+
+                    }
                     }
                 }
                 else if (unos == 2)

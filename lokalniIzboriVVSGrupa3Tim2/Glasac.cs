@@ -208,6 +208,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
         public void ProvjeriJIK(string jik)
         {
             jik.ToLower();
+            
             string dan = "";
             if (datumRodjenja.Day < 10)
             {
