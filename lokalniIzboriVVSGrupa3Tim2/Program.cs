@@ -73,6 +73,8 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 else if (unos == 1)
                 {
 
+                
+
                     bool postojiGlasac = false;
 
 
@@ -96,7 +98,9 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
                     if (postojiGlasac)
                     {
-                        Console.WriteLine("\nDobrodosli " + g.Ime + " " + g.Prezime + "! U nastavku izaberite sljedeće opcije za glasanje\n 1 - za gradonacelnika\n 2 - za nacelnika \n 3 - glasanje za vijecnika/vijecnike \n 4 - glasanje za stranku \n 5 - reset informacija o glasanju" );
+                    int brojGradonacelnika = 0, brojNacelnika = 0, brojVijecnika= 0;
+                    string strankaNaziv='';
+                    Console.WriteLine("\nDobrodosli " + g.Ime + " " + g.Prezime + "! U nastavku izaberite sljedeće opcije za glasanje\n 1 - za gradonacelnika\n 2 - za nacelnika \n 3 - glasanje za vijecnika/vijecnike \n 4 - glasanje za stranku \n 5 - reset informacija o glasanju" );
                         int unosZaGlasanje = Convert.ToInt32(Console.ReadLine());
                         if (unosZaGlasanje == 1)
                         {
@@ -118,6 +122,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                 {
                                     if (k.BrojNaListi == redniBrojGradonacelnika)
                                     {
+                                    brojGradonacelnika = redniBrojGradonacelnika; //radi reseta
                                         g.GlasaoZaGradonacelnika = true; // zbog neznanja da li je ovo duboka kopija ili nije mora se provjeriti da li ce ovaj glasac promijeniti sebe u listi glasaci u klasi lokalniizbori
                                         k.BrojGlasova++;
                                         if (k.StrankaKandidata != null)
@@ -127,6 +132,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                     }
                                 }
                             }
+                            
                             else
                                 Console.WriteLine("Vec ste glasali za gradonacelnika. Izaberite jednu od preostale dvije opcije!"); // sa ovim se treba pozabaviti kasnije
                         }
@@ -153,6 +159,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                 {
                                     if (k.BrojNaListi == redniBrojN)
                                     {
+                                    brojNacelnika = redniBrojN; //radi reseta
                                         g.GlasaoZaNacelnika = true; // zbog neznanja da li je ovo duboka kopija ili nije mora se provjeriti da li ce ovaj glasac promijeniti sebe u listi glasaci u klasi lokalniizbori
                                         k.BrojGlasova++;
                                         if (k.StrankaKandidata != null)
@@ -192,6 +199,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                     {
                                         if (s.NazivStranke.Equals(nazivStranke))
                                         {
+                                        strankaNaziv = nazivStranke; //radi reseta
                                             provjera = true;
                                             s.BrojGlasova++;
                                             break;
@@ -245,6 +253,42 @@ namespace lokalniIzboriVVSGrupa3Tim2
                         }
                         else
                         {
+                            foreach (Kandidat k in lokalniIzbori.Kandidati)
+                            {
+                                if (k.BrojNaListi == brojGradonacelnika)
+                                {
+                                    
+                                    k.BrojGlasova--;
+                                    if (k.StrankaKandidata != null)
+                                        k.StrankaKandidata.BrojGlasova--;
+                                    lokalniIzbori.Glasovi.Remove(new Glas(g, k, DateTime.Now));
+                                    break;
+                                }
+                            }
+                            foreach (Kandidat k in lokalniIzbori.Kandidati)
+                            {
+                                if (k.BrojNaListi == brojNacelnika)
+                                {
+                                    
+                                    
+                                    k.BrojGlasova--;
+                                    if (k.StrankaKandidata != null)
+                                        k.StrankaKandidata.BrojGlasova--;
+                                    lokalniIzbori.Glasovi.Remove(new Glas(g, k, DateTime.Now));
+                                    
+                                    break;
+                                }
+                            }
+                            foreach (Stranka s in lokalniIzbori.Stranke)
+                            {
+                                if (s.NazivStranke.Equals(strankaNaziv))
+                                {
+                                    
+                                    
+                                    s.BrojGlasova--;
+                                    break;
+                                }
+                            }
                             g.GlasaoZaGradonacelnika = false;
                             g.GlasaoZaNacelnika = false;
                             g.GlasaoZaVijecnika = false;
