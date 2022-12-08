@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace lokalniIzboriVVSGrupa3Tim2
 {
@@ -351,6 +352,68 @@ namespace lokalniIzboriVVSGrupa3Tim2
             jmbg = noviJmbg;
         }
         
+
+        public bool ProvjeraSifre(string tajnaSifra, bool validanJik)
+        {
+   
+                if (validanJik && tajnaSifra == "VVS20222023")
+                {
+                    return true;
+                }
+
+            return false;
+        }
+
+        public void ResetGlasanjaZaGradonacelnika(LokalniIzbori lokalniIzbori, int brojGradonacelnika)
+        {
+            foreach (Kandidat k in lokalniIzbori.Kandidati)
+            {
+                if (k.BrojNaListi == brojGradonacelnika)
+                {
+
+                    k.BrojGlasova--;
+                    if (k.StrankaKandidata != null)
+                        k.StrankaKandidata.BrojGlasova--;
+                    lokalniIzbori.Glasovi.Remove(new Glas(g, k, DateTime.Now));
+                    break;
+                }
+            }
+            glasaoZaGradonacelnika = false;
+        }
+        public void ResetGlasanjaZaNacelnika(LokalniIzbori lokalniIzbori, int brojNacelnika)
+        {
+            foreach (Kandidat k in lokalniIzbori.Kandidati)
+            {
+                if (k.BrojNaListi == brojNacelnika)
+                {
+
+
+                    k.BrojGlasova--;
+                    if (k.StrankaKandidata != null)
+                        k.StrankaKandidata.BrojGlasova--;
+                    lokalniIzbori.Glasovi.Remove(new Glas(g, k, DateTime.Now));
+
+                    break;
+                }
+            }
+            glasaoZaNacelnika = false;
+        }
+        public void ResetGlasanjaZaStranku(LokalniIzbori lokalniIzbori, string strankaNaziv)
+        {
+            foreach (Stranka s in lokalniIzbori.Stranke)
+            {
+                if (s.NazivStranke.Equals(strankaNaziv))
+                {
+
+
+                    s.BrojGlasova--;
+                    break;
+                }
+            }
+            glasaoZaVijecnika = false;
+            
+        }
+
     }
 }
 

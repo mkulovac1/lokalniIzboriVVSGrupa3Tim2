@@ -99,7 +99,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     if (postojiGlasac)
                     {
                     int brojGradonacelnika = 0, brojNacelnika = 0, brojVijecnika= 0;
-                    string strankaNaziv='';
+                    string strankaNaziv="";
                     Console.WriteLine("\nDobrodosli " + g.Ime + " " + g.Prezime + "! U nastavku izaberite sljedeće opcije za glasanje\n 1 - za gradonacelnika\n 2 - za nacelnika \n 3 - glasanje za vijecnika/vijecnike \n 4 - glasanje za stranku \n 5 - reset informacija o glasanju" );
                         int unosZaGlasanje = Convert.ToInt32(Console.ReadLine());
                         if (unosZaGlasanje == 1)
@@ -222,7 +222,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                             {
                                 Console.WriteLine("Ne moze se glasati za stranku ukoliko ste vec glasali za vijecnike!");
                             }
-                        } else if(unosZaGlasanje == 5)
+                        } else if(unosZaGlasanje == 5) //Zadaca 2, Funkcionalnost 5 - Ibrahim Efendic
                     {
                         int brojGresaka = 0;
                         bool validanJik = false;
@@ -242,9 +242,11 @@ namespace lokalniIzboriVVSGrupa3Tim2
                             }
                             Console.WriteLine("\nUnesite tajnu sifru");
                                 string tajnaSifra = Console.ReadLine();
-                            if (validanJik && tajnaSifra == "VVS20222023") break;
-                            
+                            if (g.ProvjeraSifre(tajnaSifra, validanJik)) break;
                             else brojGresaka++;
+                            
+                
+                            
                         }
                         if (brojGresaka == 3)
                         {
@@ -253,47 +255,9 @@ namespace lokalniIzboriVVSGrupa3Tim2
                         }
                         else
                         {
-                            foreach (Kandidat k in lokalniIzbori.Kandidati)
-                            {
-                                if (k.BrojNaListi == brojGradonacelnika)
-                                {
-                                    
-                                    k.BrojGlasova--;
-                                    if (k.StrankaKandidata != null)
-                                        k.StrankaKandidata.BrojGlasova--;
-                                    lokalniIzbori.Glasovi.Remove(new Glas(g, k, DateTime.Now));
-                                    break;
-                                }
-                            }
-                            foreach (Kandidat k in lokalniIzbori.Kandidati)
-                            {
-                                if (k.BrojNaListi == brojNacelnika)
-                                {
-                                    
-                                    
-                                    k.BrojGlasova--;
-                                    if (k.StrankaKandidata != null)
-                                        k.StrankaKandidata.BrojGlasova--;
-                                    lokalniIzbori.Glasovi.Remove(new Glas(g, k, DateTime.Now));
-                                    
-                                    break;
-                                }
-                            }
-                            foreach (Stranka s in lokalniIzbori.Stranke)
-                            {
-                                if (s.NazivStranke.Equals(strankaNaziv))
-                                {
-                                    
-                                    
-                                    s.BrojGlasova--;
-                                    break;
-                                }
-                            }
-                            g.GlasaoZaGradonacelnika = false;
-                            g.GlasaoZaNacelnika = false;
-                            g.GlasaoZaVijecnika = false;
-
-
+                            g.ResetGlasanjaZaGradonacelnika(lokalniIzbori, brojGradonacelnika);
+                            g.ResetGlasanjaZaNacelnika(lokalniIzbori, brojNacelnika);
+                            g.ResetGlasanjaZaStranku(lokalniIzbori, strankaNaziv);
                         }
 
                     }
