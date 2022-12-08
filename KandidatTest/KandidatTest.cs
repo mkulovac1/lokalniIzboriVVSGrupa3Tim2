@@ -61,6 +61,7 @@ namespace KandidatTest
             Kandidat k = new Kandidat("Isko", "Iskić", new DateTime(2000, 9, 9), "adresa 23", "999T999", "0909000170065", Pol.muski, b1, s1, p1, 33);
             Pozicija p2 = new Pozicija(NazivPozicije.gradonacelnik, "dasdasdsa", 33);
             k.BrojGlasova = 100;
+            
             Assert.AreEqual(100, k.BrojGlasova);
         }
 
