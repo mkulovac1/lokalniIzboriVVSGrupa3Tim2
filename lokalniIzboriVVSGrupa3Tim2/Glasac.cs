@@ -354,7 +354,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
         public bool ProvjeraSifre(string tajnaSifra, bool validanJik)
         {
-
+            
             if (validanJik && tajnaSifra == "VVS20222023")
             {
                 return true;

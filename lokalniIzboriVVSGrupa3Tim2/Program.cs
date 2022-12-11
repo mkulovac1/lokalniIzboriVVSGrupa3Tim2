@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks.Dataflow;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace lokalniIzboriVVSGrupa3Tim2
 {
     public class Program
     {
-        /*static String getPassword()
+        static String getPassword()
         {
             return Encoding.UTF8.GetString(Convert.FromBase64String("cHc="));
-        }*/
+        }
         
         static void Main(string[] args)
         {
@@ -63,7 +65,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     {
                     int brojGradonacelnika = 0, brojNacelnika = 0, brojVijecnika= 0;
                     string strankaNaziv="";
-                    Console.WriteLine("\nDobrodosli " + g.Ime + " " + g.Prezime + "! U nastavku izaberite sljedeće opcije za glasanje\n 1 - za gradonacelnika\n 2 - za nacelnika \n 3 - glasanje za vijecnika/vijecnike \n 4 - glasanje za stranku \n 5 - reset informacija o glasanju" );
+                    Console.WriteLine("\nDobrodosli " + g.Ime + " " + g.Prezime + "! U nastavku izaberite sljedeće opcije za glasanje\n 1 - za gradonacelnika\n 2 - za nacelnika \n 3 - glasanje za vijecnika/vijecnike \n 4 - glasanje za stranku \n 5 - reset informacija o glasanju \n 6 - prikaz prethodnih stranaka kandidata");
                         int unosZaGlasanje = Convert.ToInt32(Console.ReadLine());
                         if (unosZaGlasanje == 1)
                         {
@@ -225,14 +227,35 @@ namespace lokalniIzboriVVSGrupa3Tim2
                          }
 
                     }
-                             }
+                        else if (unosZaGlasanje == 6) //Zadaca 2, Funkcionalnost 2 - Emir Ramadanović
+                    {
+                        Console.WriteLine("\nUnesite redni broj kandidata sa liste: ");
+                        foreach (Kandidat k in lokalniIzbori.Kandidati)
+                        {
+                            Console.WriteLine(k.BrojNaListi + " - " + k.BiografijaKandidata.ImeKandidata + " " + k.BiografijaKandidata.PrezimeKandidata);
+                        }
+
+                        int redniBrojN = Int32.Parse(Console.ReadLine());
+                        Console.Clear();
+                        Kandidat kandidat = lokalniIzbori.Kandidati.Find(k => k.BrojNaListi == redniBrojN);
+                        string[] stranke = kandidat.BiografijaKandidata.OpisKandidata.Split(',');
+                        foreach (string stranka in stranke)
+                            if (stranka != "")
+                            {
+                                Match m = Biografija.OpisRegex.Match(stranka);
+                                Console.WriteLine("Stranka: " + m.Groups[2].Value + ", Članstvo od: " + m.Groups[3].Value + ", Članstvo do: " + m.Groups[7].Value);
+                            }
+                        Console.ReadLine();
+
+                    }
+                }
                          }
                          else if (unos == 2)
                          {
                              int unosSupervizora = -1;
                              // supervizor ili admin sta vec
                              Console.WriteLine("Dobro dosli! Potvrdite svoj identitet tako sto cete upisati svoju sifru!");
-                             if (Console.ReadLine() == "faliencodingemire")
+                             if (Console.ReadLine() == getPassword())
                              {
                                  //Visak razmak ispred druge opcije prilikom odabira opcija supervizora - Ibrahim Efendic
                                  Console.WriteLine("Vi ste supervizor! Supervizor ne moze da manipulise sa glasacima! Izaberite sljedece opcije: \n 1 - Dodaj kandidata \n  2 - Izbrisi kandidata \n 3 - Dodaj stranku \n 4 - Izmijeni stranku \n 5 - Izbrisi stranku \n 6 - Provjeri glasaca");
