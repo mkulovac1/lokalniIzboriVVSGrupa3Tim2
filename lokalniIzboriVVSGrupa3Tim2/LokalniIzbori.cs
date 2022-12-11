@@ -421,9 +421,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
         public void KreirajIzbore()
         {
             // nevazni podaci, samo za testing:
-            Biografija b = new Biografija("sklj", "sklj", new DateTime(1970, 12, 12), "sklj", "sklj", "Kandidat je bio član stranke sda od 1.1.1994 do 1.1.2025");
-            //Biografija b = new Biografija("sklj", "sklj", new DateTime(1970, 12, 12), "sklj", "sklj", "Kandidat je bio član stranke sda od 1.1.1994 do 1.1.1997, član stranke sdp od 1.1.1997 do 2.3.1999");
-            //Biografija b = new Biografija("sklj", "sklj", new DateTime(1970, 12, 12), "sklj", "sklj", "");
+            Biografija b = new Biografija("sklj", "sklj", new DateTime(1970, 12, 12), "sklj", "sklj", "Kandidat je bio član stranke sda od 1.1.1994 do 1.1.1997, član stranke sdp od 1.1.1997 do 2.3.1999");
             Stranka sda = new Stranka("SDA", "sklj");
             Stranka sds = new Stranka("SDS", "sklj");
             Stranka hdz = new Stranka("HDZ", "sklj");
