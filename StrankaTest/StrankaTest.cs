@@ -15,7 +15,7 @@ namespace StrankaTest
         [TestMethod]
         public void TestPrikazaInformacijaORukovodstvu()
         {
-            Biografija b1 = new Biografija("kandidat1", "proba1", new DateTime(1999, 1, 1), "dasdasdas", "dasdasda", "dadada");
+            Biografija b1 = new Biografija("kandidat1", "proba1", new DateTime(1999, 1, 1), "dasdasdas", "dasdasda", "Kandidat je bio član stranke hdz od 1.1.1994 do 1.1.1997");
             Stranka s1 = new Stranka("SDA", "DADASDASDASDSA");
             Pozicija p1 = new Pozicija(NazivPozicije.nacelnik, "dasdasdsa", 33);
             Kandidat k = new Kandidat("Isko", "Iskić", new DateTime(2000, 9, 9), "adresa 23", "999T999", "0909000170065", Pol.muski, b1, s1, p1, 33);
