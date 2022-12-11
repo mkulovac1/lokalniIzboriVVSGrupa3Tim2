@@ -479,6 +479,9 @@ namespace UnitTest1
             Glasac g = new Glasac(ime, prezime, rodjenje, adresa, licnaKarta, jmbg, pol);
         }
 
+        // SLJEDECE TESTOVE JE PISAO IBRAHIM EFENDIC
+
+
         [TestMethod]
         [DynamicData("GlasaciLegalni")]
         public void TestResetSvihGlasanja(string ime, string prezime, DateTime rodjenje, string adresa, string licnaKarta, string jmbg, Pol pol)

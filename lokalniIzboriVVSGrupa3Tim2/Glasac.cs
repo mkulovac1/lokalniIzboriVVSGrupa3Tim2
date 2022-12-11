@@ -1,9 +1,26 @@
-﻿using System;
+﻿using CsvHelper.Configuration;
+using System;
 using System.Collections.Generic;
 
 namespace lokalniIzboriVVSGrupa3Tim2
 {
     public enum Pol { muski, zenski };
+
+
+    public class GlasacMap : ClassMap<Glasac>
+    {
+        public GlasacMap()
+        {
+            Map(g => g.Ime).Name("Ime");
+            Map(g => g.Prezime).Name("Prezime");
+            Map(g => g.DatumRodjenja).Name("DatumRodjenja");
+            Map(g => g.Adresa).Name("Adresa");
+            Map(g => g.BrojLicneKarte).Name("LicnaKarta");
+            Map(g => g.Jmbg).Name("Jmbg");
+            Map(g => g.Pol).Name("Pol");
+        }
+    }
+
 
     public class Glasac
     {

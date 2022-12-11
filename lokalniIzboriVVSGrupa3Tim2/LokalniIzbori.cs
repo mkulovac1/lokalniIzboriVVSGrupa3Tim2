@@ -30,6 +30,11 @@ namespace lokalniIzboriVVSGrupa3Tim2
             this.stranke = stranke;
         }
 
+        public void CsvMaker()
+        {
+            CsvMaker csvMaker = new CsvMaker();
+        }
+
         public List<Glasac> Glasaci { get => glasaci; set => glasaci = value; }
         public List<Kandidat> Kandidati { get => kandidati; set => kandidati = value; }
         public List<Glas> Glasovi { get => glasovi; set => glasovi = value; }
