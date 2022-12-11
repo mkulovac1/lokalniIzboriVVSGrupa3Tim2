@@ -403,6 +403,20 @@ namespace UnitTest1
                 };
             }
         }
+        static IEnumerable<object[]> GlasaciLegalni
+        {
+            get
+            {
+                return new[]
+                {
+                    new object[] { "Merim", "Kulovac", new DateTime(1999, 8, 28), "Hrasnicka cesta 23", "321T999", "2808999170065", Pol.muski },
+                    new object[] { "Kerim", "Kulovic", new DateTime(1999, 8, 28), "Hrasnicka cesta 23", "321T999", "2808999170065", Pol.muski },
+                    new object[] { "Kerim", "Kulovac", new DateTime(1999, 8, 28), "Ulica 123", "321T999", "2808999170065", Pol.muski },
+                    new object[] { "Merim", "Kulovac", new DateTime(1999, 8, 28), "Hrasnicka cesta 23", "321T999", "2808999170065", Pol.muski },
+                    new object[] { "Merim", "Kulovac", new DateTime(1999, 8, 28), "Hrasnicka cesta 23", "321T999", "2808999170065", Pol.muski }
+                };
+            }
+        }
 
         [TestMethod]
         [DynamicData("Glasaci")]
@@ -426,12 +440,33 @@ namespace UnitTest1
                 }
             }
         }
+        public static IEnumerable<object[]> UcitajLegalnePodatkeCSV()
+        {
+            using (var reader = new StreamReader(@"C:\Users\Admin\source\repos\lokalniIzboriVVSGrupa3Tim2\GlasacTest\glasaciLegalni.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var rows = csv.GetRecords<dynamic>();
+                foreach (var row in rows)
+                {
+                    var values = ((IDictionary<String, Object>)row).Values;
+                    var elements = values.Select(elem => elem.ToString()).ToList();
+                    yield return new object[] { elements[0], elements[1], elements[2], elements[3], elements[4], elements[5], elements[6] };
+                }
+            }
+        }
 
         static IEnumerable<object[]> GlasaciCSV
         {
             get
             {
                 return UcitajPodatkeCSV();
+            }
+        }
+        static IEnumerable<object[]> GlasaciLegalniCSV
+        {
+            get
+            {
+                return UcitajLegalnePodatkeCSV();
             }
         }
 
@@ -444,47 +479,57 @@ namespace UnitTest1
             Glasac g = new Glasac(ime, prezime, rodjenje, adresa, licnaKarta, jmbg, pol);
         }
 
-        /*[TestMethod]
-        [DynamicData("Glasaci")]
+        [TestMethod]
+        [DynamicData("GlasaciLegalni")]
         public void TestResetSvihGlasanja(string ime, string prezime, DateTime rodjenje, string adresa, string licnaKarta, string jmbg, Pol pol)
         {
+
             
-            Glasac g = new Glasac(ime, prezime, rodjenje, adresa, licnaKarta, jmbg, pol);
+            Glasac g = new Glasac(ime, prezime,rodjenje, adresa, licnaKarta, jmbg, pol);
             LokalniIzbori lokalniIzbori = new LokalniIzbori();
             Biografija b1 = new Biografija("kandidat1", "proba1", new DateTime(1999, 1, 1), "dasdasdas", "dasdasda", "dadada");
             Biografija b2 = new Biografija("kandidat2", "proba2", new DateTime(1999, 1, 31), "dasdasdas", "dasdasda", "dadada");
             Stranka s1 = new Stranka("SDA", "DADASDASDASDSA");
             Pozicija p1 = new Pozicija(NazivPozicije.nacelnik, "dasdasdsa", 33);
             Pozicija p2 = new Pozicija(NazivPozicije.gradonacelnik, "dasdasdsa", 33);
-            
+            Pozicija p3 = new Pozicija(NazivPozicije.vijecnik, "dasdasdsa", 33);
+
             Kandidat k1 = new Kandidat("Isko", "Iskiæ", new DateTime(2000, 9, 9), "adresa 23", "999T999", "0909000170065", Pol.muski, b1, s1, p1, 33);
             Kandidat k2 = new Kandidat("Neda", "Nediæ", new DateTime(1978, 11, 22), "adresa1", "323E789", "2211978890123", Pol.muski, b2, s1, p2, 11);
+            Kandidat k3 = new Kandidat("Neda", "Nediæ", new DateTime(1978, 11, 22), "adresa1", "323E789", "2211978890123", Pol.muski, b2, s1, p3, 12);
             k1.BrojGlasova = 10;
             k2.BrojGlasova = 12;
+            k3.BrojGlasova = 15;
             s1.BrojGlasova = 100;
             List<Kandidat> kandidati = new List<Kandidat>();
             kandidati.Add(k1);
             kandidati.Add(k2);
+            kandidati.Add(k3);
             lokalniIzbori.Kandidati = kandidati;
 
             List<Glasac> glasaci = new List<Glasac>();
             glasaci.Add(g);
             lokalniIzbori.Glasaci = glasaci;
 
-            g.GlasaoZaGradonacelnika = true;
-            g.GlasaoZaNacelnika = true;
-            g.GlasaoZaVijecnika = true;
-            g.ResetGlasanjaZaGradonacelnika(lokalniIzbori, k2.BrojNaListi);
-            g.ResetGlasanjaZaNacelnika(lokalniIzbori, k1.BrojNaListi);
-            g.ResetGlasanjaZaStranku(lokalniIzbori, s1.NazivStranke);
+            lokalniIzbori.Glasovi.Add(new Glas(g, k1, DateTime.Now));
+            lokalniIzbori.Glasovi.Add(new Glas(g, k2, DateTime.Now));
+            lokalniIzbori.Glasovi.Add(new Glas(g, k3, DateTime.Now));
+
+            //g.GlasaoZaGradonacelnika = true;
+            //g.GlasaoZaNacelnika = true;
+            //g.GlasaoZaVijecnika = true;
+            lokalniIzbori.ResetGlasanjaZaGradonacelnika(g);
+            lokalniIzbori.ResetGlasanjaZaNacelnika(g);
+            lokalniIzbori.ResetGlasanjaZaVijecnika(g);
             
 
-            Assert.AreEqual(9, k1.BrojGlasova);
-            Assert.AreEqual(11, k2.BrojGlasova);
-            Assert.AreEqual(99, s1.BrojGlasova);
+            Assert.AreEqual(10, k1.BrojGlasova);
+            Assert.AreEqual(12, k2.BrojGlasova);
+            Assert.AreEqual(15, k3.BrojGlasova);
+            Assert.AreEqual(100, s1.BrojGlasova);
         }
         [TestMethod]
-        [DynamicData("GlasaciCSV")]
+        [DynamicData("GlasaciLegalni")]
         public void TestUnosaSifre(string ime, string prezime, DateTime rodjenje, string adresa, string licnaKarta, string jmbg, Pol pol)
         {
             Glasac g = new Glasac(ime, prezime, rodjenje, adresa, licnaKarta, jmbg, pol);
@@ -498,6 +543,6 @@ namespace UnitTest1
             Assert.AreEqual(false, g.ProvjeraSifre(tajnaSifra1, validanJik1));
             Assert.AreEqual(false, g.ProvjeraSifre(tajnaSifra1, validanJik2));
             Assert.AreEqual(false, g.ProvjeraSifre(tajnaSifra2, validanJik2));
-        }*/
+        }
     }
 }

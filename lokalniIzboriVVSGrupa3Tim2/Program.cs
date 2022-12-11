@@ -218,12 +218,13 @@ namespace lokalniIzboriVVSGrupa3Tim2
                         }
                         else
                         {
-                            /*g.ResetGlasanjaZaGradonacelnika(lokalniIzbori, brojGradonacelnika);
-                            g.ResetGlasanjaZaNacelnika(lokalniIzbori, brojNacelnika);
-                            g.ResetGlasanjaZaStranku(lokalniIzbori, strankaNaziv);*/
-                                 }
+                            lokalniIzbori.ResetGlasanjaZaGradonacelnika(g);
+                            lokalniIzbori.ResetGlasanjaZaNacelnika(g);
+                            lokalniIzbori.ResetGlasanjaZaVijecnika(g);
+                            
+                         }
 
-                             }
+                    }
                              }
                          }
                          else if (unos == 2)

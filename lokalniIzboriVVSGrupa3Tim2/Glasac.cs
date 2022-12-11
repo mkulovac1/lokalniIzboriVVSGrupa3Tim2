@@ -139,7 +139,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             brojLicneKarte = brojLicneKarte.TrimEnd();
 
             if (brojLicneKarte.Length != 7)
-                throw new ArgumentException("Broj lične karte mora imati tačno 9 karaktera!");
+                throw new ArgumentException("Broj lične karte mora imati tačno 7 karaktera!");
 
             PomocnaProvjeraLicneKarte(brojLicneKarte);
         }

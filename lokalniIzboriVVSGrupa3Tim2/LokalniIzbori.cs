@@ -140,8 +140,31 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     // sad je potrebno izbrisati klas kandidatu za koga je glasac "glasac" glasao, to ćemo uraditi na način da nađemo kandidata u listi Kandidata koji odgovara kandidatu sa glasačkog listića
                     foreach (Kandidat k in kandidati)
                     {
-                        if (k.Equals(glas.Kandidat))
+                        if (k.Equals(glas.Kandidat) && k.PozicijaKandidata.NazivPozicije == NazivPozicije.gradonacelnik)
                         {
+                            
+                            k.BrojGlasova--;
+                            
+                            break;
+                        }
+                    }
+                    glasovi.Remove(glas); // ako se naiđe na glasački listić koji ima istog glasača kao i proslijeđeni glasač, onda se briše iz liste glasova
+                    break;
+                }
+            }
+        }
+        public void ResetGlasanjaZaNacelnika(Glasac glasac)
+        {
+            foreach (Glas glas in glasovi)
+            {
+                if (glas.Glasac.Equals(glasac))
+                {
+                    // sad je potrebno izbrisati klas kandidatu za koga je glasac "glasac" glasao, to ćemo uraditi na način da nađemo kandidata u listi Kandidata koji odgovara kandidatu sa glasačkog listića
+                    foreach (Kandidat k in kandidati)
+                    {
+                        if (k.Equals(glas.Kandidat) && k.PozicijaKandidata.NazivPozicije == NazivPozicije.nacelnik)
+                        {
+                            
                             k.BrojGlasova--;
                             break;
                         }
@@ -151,6 +174,29 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 }
             }
         }
+        public void ResetGlasanjaZaVijecnika(Glasac glasac)
+        {
+            foreach (Glas glas in glasovi)
+            {
+                if (glas.Glasac.Equals(glasac))
+                {
+                    // sad je potrebno izbrisati klas kandidatu za koga je glasac "glasac" glasao, to ćemo uraditi na način da nađemo kandidata u listi Kandidata koji odgovara kandidatu sa glasačkog listića
+                    foreach (Kandidat k in kandidati)
+                    {
+                        if (k.Equals(glas.Kandidat) && k.PozicijaKandidata.NazivPozicije == NazivPozicije.vijecnik)
+                        {
+                            
+                            k.BrojGlasova--;
+                            k.StrankaKandidata.BrojGlasova--;
+                            break;
+                        }
+                    }
+                    glasovi.Remove(glas); // ako se naiđe na glasački listić koji ima istog glasača kao i proslijeđeni glasač, onda se briše iz liste glasova
+                    break;
+                }
+            }
+        }
+
 
 
         // FUNKCIONALNOST 3 je radio Nedim Džindo.
