@@ -15,51 +15,14 @@ namespace lokalniIzboriVVSGrupa3Tim2
         
         static void Main(string[] args)
         {
-            // Glasac g = new Glasac("Merim", "Kulovac", Convert.ToDateTime("08/28/1999"), "Dzinde 23", "28AJK32S", 2808999170065, Pol.muski);
-            // NA NIVOU JEDNE OPCINE ?!
+ 
+           LokalniIzbori lokalniIzbori = new LokalniIzbori();
+           lokalniIzbori.KreirajIzbore(); // ovo dodaje glasove, kandidate, glasace tj povezuje u sistem
+           // lokalniIzbori.IspisiInformacijeZaStranke();
+           // Stranka sda = new Stranka("SDA", "sklj");
+           // lokalniIzbori.IspisiInformacijeZaStranku(sda);
 
 
-            // Neki podaci:
-
-            Glasac g1 = new Glasac("Neko", "Nekić", new DateTime(2000, 9, 9), "adresa 23", "999T999", "0909000170065", Pol.muski); // ispravan glasac
-            Glasac g2 = new Glasac("Pero", "Perić", new DateTime(1978, 11, 22), "adresa1", "323E789", "2211978890123", Pol.muski); // neispravni
-            Glasac g3 = new Glasac("Mera", "Merić", new DateTime(1978, 9, 22), "adresa1", "423J459", "2209978890123", Pol.muski);
-            Glasac g4 = new Glasac("Ibri", "Ibrić", new DateTime(1978, 9, 21), "adresa1", "523K489", "2109978890123", Pol.muski);
-
-            
-
-            //glprad321222mu
-
-            List<Glasac> glasaci = new List<Glasac>();
-            glasaci.Add(g1);
-            glasaci.Add(g2);
-            glasaci.Add(g3);
-            glasaci.Add(g4);
-
-            Biografija b1 = new Biografija("kandidat1", "proba1", new DateTime(1999, 1, 1), "dasdasdas", "dasdasda", "dadada");
-            Biografija b2 = new Biografija("kandidat2", "proba2", new DateTime(1999, 1, 31), "dasdasdas", "dasdasda", "dadada");
-            Stranka s1 = new Stranka("SDA", "DADASDASDASDSA");
-            Pozicija p1 = new Pozicija(NazivPozicije.nacelnik, "dasdasdsa", 33);
-            Kandidat k1 = new Kandidat("Isko", "Iskić", new DateTime(2000, 9, 9), "adresa 23", "999T999", "0909000170065", Pol.muski,b1, s1, p1, 33);
-            Kandidat k2 = new Kandidat("Neda", "Nedić", new DateTime(1978, 11, 22), "adresa1", "323E789", "2211978890123", Pol.muski, b2, s1, p1, 11);
-
-            List<Kandidat> kandidati = new List<Kandidat>();
-            kandidati.Add(k1);
-            kandidati.Add(k2);
-
-            List<Stranka> stranke = new List<Stranka>();
-            stranke.Add(s1);
-
-
-
-
-            LokalniIzbori lokalniIzbori = new LokalniIzbori();
-
-            lokalniIzbori.Glasaci = glasaci;
-            lokalniIzbori.Kandidati = kandidati;
-
-            
-            
             Console.WriteLine("Pozdrav!\nDobrodošli na naš informacioni sistem za lokalne izbore u Sarajevu\nKoja je Vaša uloga? (pritisnite odgovarajuću tipku na tastaturi za izbor):\n1 - Glasac\n2 - Supervizor\n3 - Trenutno stanje na izborima\n0 - izlaz\n");
             int unos = -1; // sigurnost
             unos = Convert.ToInt32(Console.ReadLine());
@@ -123,10 +86,10 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                     if (k.BrojNaListi == redniBrojGradonacelnika)
                                     {
                                     brojGradonacelnika = redniBrojGradonacelnika; //radi reseta
-                                        g.GlasaoZaGradonacelnika = true; // zbog neznanja da li je ovo duboka kopija ili nije mora se provjeriti da li ce ovaj glasac promijeniti sebe u listi glasaci u klasi lokalniizbori
-                                        k.BrojGlasova++;
-                                        if (k.StrankaKandidata != null)
-                                            k.StrankaKandidata.BrojGlasova++;
+                                        g.GlasaoZaGradonacelnika = true; 
+                                        // k.BrojGlasova++; // jer se sada u klasi Glas povecava brojGlasova kandidatu
+                                        // if (k.StrankaKandidata != null)
+                                        //    k.StrankaKandidata.BrojGlasova++;
                                         lokalniIzbori.Glasovi.Add(new Glas(g, k, DateTime.Now));
                                         break;
                                     }
@@ -161,9 +124,9 @@ namespace lokalniIzboriVVSGrupa3Tim2
                                     {
                                     brojNacelnika = redniBrojN; //radi reseta
                                         g.GlasaoZaNacelnika = true; // zbog neznanja da li je ovo duboka kopija ili nije mora se provjeriti da li ce ovaj glasac promijeniti sebe u listi glasaci u klasi lokalniizbori
-                                        k.BrojGlasova++;
+                                        /* k.BrojGlasova++;
                                         if (k.StrankaKandidata != null)
-                                            k.StrankaKandidata.BrojGlasova++;
+                                            k.StrankaKandidata.BrojGlasova++; */
                                         lokalniIzbori.Glasovi.Add(new Glas(g, k, DateTime.Now));
                                         Console.WriteLine(g.GlasaoZaNacelnika + " " + k.BrojGlasova);
                                         break;
@@ -255,358 +218,358 @@ namespace lokalniIzboriVVSGrupa3Tim2
                         }
                         else
                         {
-                            g.ResetGlasanjaZaGradonacelnika(lokalniIzbori, brojGradonacelnika);
+                            /*g.ResetGlasanjaZaGradonacelnika(lokalniIzbori, brojGradonacelnika);
                             g.ResetGlasanjaZaNacelnika(lokalniIzbori, brojNacelnika);
-                            g.ResetGlasanjaZaStranku(lokalniIzbori, strankaNaziv);
-                        }
+                            g.ResetGlasanjaZaStranku(lokalniIzbori, strankaNaziv);*/
+                                 }
 
-                    }
-                    }
-                }
-                else if (unos == 2)
-                {
-                    int unosSupervizora = -1;
-                    // supervizor ili admin sta vec
-                    Console.WriteLine("Dobro dosli! Potvrdite svoj identitet tako sto cete upisati svoju sifru!");
-                    if (Console.ReadLine() == "faliencodingemire")
-                    {
-                        //Visak razmak ispred druge opcije prilikom odabira opcija supervizora - Ibrahim Efendic
-                        Console.WriteLine("Vi ste supervizor! Supervizor ne moze da manipulise sa glasacima! Izaberite sljedece opcije: \n 1 - Dodaj kandidata \n  2 - Izbrisi kandidata \n 3 - Dodaj stranku \n 4 - Izmijeni stranku \n 5 - Izbrisi stranku \n 6 - Provjeri glasaca");
-                        unosSupervizora = Int32.Parse(Console.ReadLine());
-                        if (unosSupervizora == 1)
-                        {
-                            Console.WriteLine("Unesite ime kandidata: ");
-                            string ime = Console.ReadLine();
+                             }
+                             }
+                         }
+                         else if (unos == 2)
+                         {
+                             int unosSupervizora = -1;
+                             // supervizor ili admin sta vec
+                             Console.WriteLine("Dobro dosli! Potvrdite svoj identitet tako sto cete upisati svoju sifru!");
+                             if (Console.ReadLine() == "faliencodingemire")
+                             {
+                                 //Visak razmak ispred druge opcije prilikom odabira opcija supervizora - Ibrahim Efendic
+                                 Console.WriteLine("Vi ste supervizor! Supervizor ne moze da manipulise sa glasacima! Izaberite sljedece opcije: \n 1 - Dodaj kandidata \n  2 - Izbrisi kandidata \n 3 - Dodaj stranku \n 4 - Izmijeni stranku \n 5 - Izbrisi stranku \n 6 - Provjeri glasaca");
+                                 unosSupervizora = Int32.Parse(Console.ReadLine());
+                                 if (unosSupervizora == 1)
+                                 {
+                                     Console.WriteLine("Unesite ime kandidata: ");
+                                     string ime = Console.ReadLine();
 
-                            Console.WriteLine("Unesite prezime kandidata: ");
-                            string prezime = Console.ReadLine();
+                                     Console.WriteLine("Unesite prezime kandidata: ");
+                                     string prezime = Console.ReadLine();
 
-                            Console.WriteLine("Unesite godinu rodjenja:  ");
-                            string godinaString = Console.ReadLine();
+                                     Console.WriteLine("Unesite godinu rodjenja:  ");
+                                     string godinaString = Console.ReadLine();
 
-                            Console.WriteLine("Unesite mjesec rodjenja:  ");
-                            string mjesecString = Console.ReadLine();
+                                     Console.WriteLine("Unesite mjesec rodjenja:  ");
+                                     string mjesecString = Console.ReadLine();
 
-                            Console.WriteLine("Unesite dan rodjenja:  ");
-                            string danString = Console.ReadLine();
+                                     Console.WriteLine("Unesite dan rodjenja:  ");
+                                     string danString = Console.ReadLine();
 
-                            Console.WriteLine("Unesite adresu kandidata: ");
-                            string adresa = Console.ReadLine();
+                                     Console.WriteLine("Unesite adresu kandidata: ");
+                                     string adresa = Console.ReadLine();
 
-                            Console.WriteLine("Unesite broj licne karte kandidata: ");
-                            string brojLicneKarte = Console.ReadLine();
+                                     Console.WriteLine("Unesite broj licne karte kandidata: ");
+                                     string brojLicneKarte = Console.ReadLine();
 
-                            Console.WriteLine("Unesite jmbg kandidata: ");
-                            string jmbg = Console.ReadLine();
+                                     Console.WriteLine("Unesite jmbg kandidata: ");
+                                     string jmbg = Console.ReadLine();
 
-                            Console.WriteLine("Unesite pol kandidata (muški - M, ženski - Ž): ");
-                            string polString = Console.ReadLine();
+                                     Console.WriteLine("Unesite pol kandidata (muški - M, ženski - Ž): ");
+                                     string polString = Console.ReadLine();
 
-                            Pol pol= new Pol();
+                                     Pol pol= new Pol();
 
-                            if (polString.Equals("M"))
-                            {
-                                pol = Pol.muski;
-                            }
-                            else if (polString.Equals("Ž"))
-                            {
-                                pol = Pol.zenski;
-                            }
+                                     if (polString.Equals("M"))
+                                     {
+                                         pol = Pol.muski;
+                                     }
+                                     else if (polString.Equals("Ž"))
+                                     {
+                                         pol = Pol.zenski;
+                                     }
 
-                            Console.WriteLine("Unesite strucnu spremu kandidata: ");
-                            string strucnaSpremaKandidata = Console.ReadLine();
+                                     Console.WriteLine("Unesite strucnu spremu kandidata: ");
+                                     string strucnaSpremaKandidata = Console.ReadLine();
 
-                            Console.WriteLine("Unesite opis kandidata: ");
-                            string opis = Console.ReadLine();
+                                     Console.WriteLine("Unesite opis kandidata: ");
+                                     string opis = Console.ReadLine();
 
-                            Console.WriteLine("Unesite naziv stranke kandidata (skracenicu): "); // kriticno, moze stranka da ne postoji
-                            string nazivStranke = "";
+                                     Console.WriteLine("Unesite naziv stranke kandidata (skracenicu): "); // kriticno, moze stranka da ne postoji
+                                     string nazivStranke = "";
 
-                            while (true)
-                            {
-                                nazivStranke = Console.ReadLine();
-                                bool temp = false;
-                                foreach (Stranka stranka in stranke)
-                                {
-                                    if (nazivStranke.Equals(stranka.NazivStranke))
-                                    {
-                                        temp = true;
-                                        break;
-                                    }
-                                }
-                                if (temp)
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Stranka ne postoji, unesite ponovo naziv stranke: ");
-                                }
-                            }
+                                     while (true)
+                                     {
+                                         nazivStranke = Console.ReadLine();
+                                         bool temp = false;
+                                         foreach (Stranka stranka in lokalniIzbori.Stranke)
+                                         {
+                                             if (nazivStranke.Equals(stranka.NazivStranke))
+                                             {
+                                                 temp = true;
+                                                 break;
+                                             }
+                                         }
+                                         if (temp)
+                                         {
+                                             break;
+                                         }
+                                         else
+                                         {
+                                             Console.WriteLine("Stranka ne postoji, unesite ponovo naziv stranke: ");
+                                         }
+                                     }
 
-                            Console.WriteLine("Pozicija kandidata (gradonacelnik, nacelnik ili vijecnik): "); // kriticno jer moze unijeti nesto sklj, ne mogu se peglati sa tim
-                            string pozicija = "";
+                                     Console.WriteLine("Pozicija kandidata (gradonacelnik, nacelnik ili vijecnik): "); // kriticno jer moze unijeti nesto sklj, ne mogu se peglati sa tim
+                                     string pozicija = "";
 
-                            while (true)
-                            {
-                                pozicija = Console.ReadLine();
-                                if (pozicija.Equals("gradonacelnik") || pozicija.Equals("nacelnik") || pozicija.Equals("vijecnik"))
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Neispravan unos, molimo vas unesite jednu od pozicija (gradonacelnik, nacelnik ili vijecnik): ");
-                                }
-                            }
+                                     while (true)
+                                     {
+                                         pozicija = Console.ReadLine();
+                                         if (pozicija.Equals("gradonacelnik") || pozicija.Equals("nacelnik") || pozicija.Equals("vijecnik"))
+                                         {
+                                             break;
+                                         }
+                                         else
+                                         {
+                                             Console.WriteLine("Neispravan unos, molimo vas unesite jednu od pozicija (gradonacelnik, nacelnik ili vijecnik): ");
+                                         }
+                                     }
 
-                            NazivPozicije poz = NazivPozicije.vijecnik; //
-                            if (pozicija == "vijecnik")
-                                poz = NazivPozicije.vijecnik;
-                            else if (pozicija == "nacelnik")
-                                poz = NazivPozicije.nacelnik;
-                            else if (pozicija == "gradonacelnik")
-                                poz = NazivPozicije.gradonacelnik;
+                                     NazivPozicije poz = NazivPozicije.vijecnik; //
+                                     if (pozicija == "vijecnik")
+                                         poz = NazivPozicije.vijecnik;
+                                     else if (pozicija == "nacelnik")
+                                         poz = NazivPozicije.nacelnik;
+                                     else if (pozicija == "gradonacelnik")
+                                         poz = NazivPozicije.gradonacelnik;
 
-                            Console.WriteLine("Redni broj na listi: "); // kriticno, moze da se ponovi (unose isti broj) trebalo bi gledati sljedeci slobodni
-                            int broj = Int32.Parse(Console.ReadLine());
+                                     Console.WriteLine("Redni broj na listi: "); // kriticno, moze da se ponovi (unose isti broj) trebalo bi gledati sljedeci slobodni
+                                     int broj = Int32.Parse(Console.ReadLine());
 
-                            Stranka s = null;
-                            foreach (Stranka str in lokalniIzbori.Stranke)
-                            {
-                                if (str.NazivStranke.Equals(nazivStranke))
-                                {
-                                    s = str;
-                                    break;
-                                }
-                            }
+                                     Stranka s = null;
+                                     foreach (Stranka str in lokalniIzbori.Stranke)
+                                     {
+                                         if (str.NazivStranke.Equals(nazivStranke))
+                                         {
+                                             s = str;
+                                             break;
+                                         }
+                                     }
 
-                            int godina = Int32.Parse(godinaString);
-                            int mjesec = Int32.Parse(mjesecString);
-                            int dan = Int32.Parse(danString);
+                                     int godina = Int32.Parse(godinaString);
+                                     int mjesec = Int32.Parse(mjesecString);
+                                     int dan = Int32.Parse(danString);
 
-                            DateTime datum = new DateTime(godina, mjesec, dan);
+                                     DateTime datum = new DateTime(godina, mjesec, dan);
 
-                            Biografija b = new Biografija(ime, prezime, datum, adresa, strucnaSpremaKandidata, opis);
+                                     Biografija b = new Biografija(ime, prezime, datum, adresa, strucnaSpremaKandidata, opis);
 
-                            Pozicija p = new Pozicija(poz, "", broj);
+                                     Pozicija p = new Pozicija(poz, "", broj);
 
-                            lokalniIzbori.Kandidati.Add(new Kandidat(ime, prezime, datum, adresa, brojLicneKarte, jmbg, pol, b, s, p, broj));
+                                     lokalniIzbori.Kandidati.Add(new Kandidat(ime, prezime, datum, adresa, brojLicneKarte, jmbg, pol, b, s, p, broj));
 
-                            Console.WriteLine("Kandidat uspjesno dodan!");
-                        }
-                        else if (unosSupervizora == 2)
-                        {
-                            int redniBrojNaListi = Int32.Parse(Console.ReadLine());
-                            bool izbrisan = false;
-                            //Potrebno naznačiti supervizoru po kojem kriteriju se brise kandidat (redni broj na listi) - Ibrahim Efendic
-                            //Potrebna provjera ukoliko unos nije broj, jer dolazi do Unhandled Exception-a - Ibrahim Efendic
-                            foreach (Kandidat k in lokalniIzbori.Kandidati)
-                            {
-                                if (k.BrojNaListi == redniBrojNaListi)
-                                {
-                                    lokalniIzbori.Kandidati.Remove(k);
-                                    izbrisan = true;
-                                    break;
-                                }
-                            }
-                            if (izbrisan)
-                                Console.WriteLine("Kandidat uspjesno izbrisan!");
-                            else
-                                Console.WriteLine("Kandidat ne postoji!");
-                        }
-                        else if (unosSupervizora == 3)
-                        {
-
-
-                            // unesi stranku
-                            string naziv = Console.ReadLine();
-
-                            bool pronasao = true;
-                            while (pronasao)
-                            {
-                                Console.WriteLine("Unesite naziv stranke: \n");
-                                foreach (Stranka s in lokalniIzbori.Stranke)
-                                {
-                                    if (s.NazivStranke.Equals(naziv))
-                                        pronasao = true;
-                                }
-                                if (pronasao)
-                                    Console.WriteLine("Postoji ta stranka vec!");
-                                else
-                                    pronasao = false;
-                            }
+                                     Console.WriteLine("Kandidat uspjesno dodan!");
+                                 }
+                                 else if (unosSupervizora == 2)
+                                 {
+                                     int redniBrojNaListi = Int32.Parse(Console.ReadLine());
+                                     bool izbrisan = false;
+                                     //Potrebno naznačiti supervizoru po kojem kriteriju se brise kandidat (redni broj na listi) - Ibrahim Efendic
+                                     //Potrebna provjera ukoliko unos nije broj, jer dolazi do Unhandled Exception-a - Ibrahim Efendic
+                                     foreach (Kandidat k in lokalniIzbori.Kandidati)
+                                     {
+                                         if (k.BrojNaListi == redniBrojNaListi)
+                                         {
+                                             lokalniIzbori.Kandidati.Remove(k);
+                                             izbrisan = true;
+                                             break;
+                                         }
+                                     }
+                                     if (izbrisan)
+                                         Console.WriteLine("Kandidat uspjesno izbrisan!");
+                                     else
+                                         Console.WriteLine("Kandidat ne postoji!");
+                                 }
+                                 else if (unosSupervizora == 3)
+                                 {
 
 
-                            Console.WriteLine("Unesite opis stranke: \n");
-                            string opis = Console.ReadLine();
+                                     // unesi stranku
+                                     string naziv = Console.ReadLine();
 
-                            lokalniIzbori.Stranke.Add(new Stranka(naziv, opis));
-                            Console.WriteLine("Stranka uspjesno dodana!");
+                                     bool pronasao = true;
+                                     while (pronasao)
+                                     {
+                                         Console.WriteLine("Unesite naziv stranke: \n");
+                                         foreach (Stranka s in lokalniIzbori.Stranke)
+                                         {
+                                             if (s.NazivStranke.Equals(naziv))
+                                                 pronasao = true;
+                                         }
+                                         if (pronasao)
+                                             Console.WriteLine("Postoji ta stranka vec!");
+                                         else
+                                             pronasao = false;
+                                     }
 
-                        }
-                        else if (unosSupervizora == 4)
-                        {
-                            // izmijeni stranku
-                            Console.WriteLine("Unesite naziv stranke: ");
-                            string naziv = Console.ReadLine();
 
-                            bool provjera = false;
-                            while (!provjera)
-                            {
-                                foreach (Stranka s in lokalniIzbori.Stranke)
-                                {
-                                    if (s.NazivStranke.Equals(naziv))
-                                    {
-                                        provjera = true;
-                                        Console.WriteLine("Unesite novi naziv stranke: ");
-                                        string noviNaziv = Console.ReadLine();
-                                        Console.WriteLine("Unesite novi opis stranke: ");
-                                        string noviOpis = Console.ReadLine();
-                                        s.NazivStranke = noviNaziv;
-                                        s.OpisStranke = noviOpis;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else if (unosSupervizora == 5)
-                        {
+                                     Console.WriteLine("Unesite opis stranke: \n");
+                                     string opis = Console.ReadLine();
 
-                            //Potrebno naznačiti supervizoru po kojem kriteriju se brise stranka (skraceni naziv) - Ibrahim Efendic
-                            // izbrisi stranku
-                            string naziv = Console.ReadLine();
-                            bool izbrisan = false;
-                            foreach (Stranka s in lokalniIzbori.Stranke)
-                            {
-                                if (s.NazivStranke.Equals(naziv))
-                                {
-                                    lokalniIzbori.Stranke.Remove(s);
-                                    izbrisan = true;
-                                    break;
-                                }
-                            }
-                            if (izbrisan)
-                                Console.WriteLine("Stranka uspjesno izbrisana!");
-                            else
-                                Console.WriteLine("Stranka ne postoji!");
+                                     lokalniIzbori.Stranke.Add(new Stranka(naziv, opis));
+                                     Console.WriteLine("Stranka uspjesno dodana!");
 
-                        }
-                        else if (unosSupervizora == 6)
-                        {
-                            bool pronadjiJik = false;
-                            Console.WriteLine("Unesite JIK glasaca: ");
-                            string jik = Console.ReadLine();
-                            foreach (Glasac glasac in lokalniIzbori.Glasaci)
-                            {
-                                if (jik.Equals(glasac.Jik))
-                                {
-                                    Console.WriteLine("Postoji glasac sa tim JIK-om!");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Niste unijeli dobar JIK ili niste registrovani za glasanje. Pokusajte ponovo.\n");
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Pogresna sifra! Pokusajte ponovo!");
-                    }
-                }
-                else if (unos == 3)
-                {
-                    if (lokalniIzbori.Glasaci.Count == 0 || lokalniIzbori.Kandidati.Count == 0 || lokalniIzbori.Glasovi.Count == 0)
-                    {
-                        Console.WriteLine("Glasanje nije pocelo");
-                        return;
-                    }
+                                 }
+                                 else if (unosSupervizora == 4)
+                                 {
+                                     // izmijeni stranku
+                                     Console.WriteLine("Unesite naziv stranke: ");
+                                     string naziv = Console.ReadLine();
 
-                    // rezultati glasanja
-                    Console.WriteLine("Prikaz rezultata glasanja:\n");
+                                     bool provjera = false;
+                                     while (!provjera)
+                                     {
+                                         foreach (Stranka s in lokalniIzbori.Stranke)
+                                         {
+                                             if (s.NazivStranke.Equals(naziv))
+                                             {
+                                                 provjera = true;
+                                                 Console.WriteLine("Unesite novi naziv stranke: ");
+                                                 string noviNaziv = Console.ReadLine();
+                                                 Console.WriteLine("Unesite novi opis stranke: ");
+                                                 string noviOpis = Console.ReadLine();
+                                                 s.NazivStranke = noviNaziv;
+                                                 s.OpisStranke = noviOpis;
+                                                 break;
+                                             }
+                                         }
+                                     }
+                                 }
+                                 else if (unosSupervizora == 5)
+                                 {
 
-                    Console.Write("Ukupno postoji " + lokalniIzbori.Glasaci.Count + " glasaca.\n");
-                    Console.Write("Za gradonacelnika je glasalo: ");
-                    int brojacZaGradonacelnika = 0, brojacZaNacelnika = 0, brojacZaVijecnike = 0, brojacZaStranke = 0;
-                    foreach (Glasac g in lokalniIzbori.Glasaci)
-                    {
-                        if (g.GlasaoZaGradonacelnika)
-                            brojacZaGradonacelnika++;
-                        if (g.GlasaoZaNacelnika)
-                            brojacZaNacelnika++;
-                        if (g.GlasaoZaVijecnika)
-                            brojacZaVijecnike++;
-                    }
+                                     //Potrebno naznačiti supervizoru po kojem kriteriju se brise stranka (skraceni naziv) - Ibrahim Efendic
+                                     // izbrisi stranku
+                                     string naziv = Console.ReadLine();
+                                     bool izbrisan = false;
+                                     foreach (Stranka s in lokalniIzbori.Stranke)
+                                     {
+                                         if (s.NazivStranke.Equals(naziv))
+                                         {
+                                             lokalniIzbori.Stranke.Remove(s);
+                                             izbrisan = true;
+                                             break;
+                                         }
+                                     }
+                                     if (izbrisan)
+                                         Console.WriteLine("Stranka uspjesno izbrisana!");
+                                     else
+                                         Console.WriteLine("Stranka ne postoji!");
 
-                    foreach (Stranka s in lokalniIzbori.Stranke)
-                    {
-                        brojacZaStranke += s.BrojGlasova;
-                    }
+                                 }
+                                 else if (unosSupervizora == 6)
+                                 {
+                                     bool pronadjiJik = false;
+                                     Console.WriteLine("Unesite JIK glasaca: ");
+                                     string jik = Console.ReadLine();
+                                     foreach (Glasac glasac in lokalniIzbori.Glasaci)
+                                     {
+                                         if (jik.Equals(glasac.Jik))
+                                         {
+                                             Console.WriteLine("Postoji glasac sa tim JIK-om!");
+                                         }
+                                         else
+                                         {
+                                             Console.WriteLine("Niste unijeli dobar JIK ili niste registrovani za glasanje. Pokusajte ponovo.\n");
+                                         }
+                                     }
+                                 }
+                             }
+                             else
+                             {
+                                 Console.WriteLine("Pogresna sifra! Pokusajte ponovo!");
+                             }
+                         }
+                         else if (unos == 3)
+                         {
+                             if (lokalniIzbori.Glasaci.Count == 0 || lokalniIzbori.Kandidati.Count == 0 || lokalniIzbori.Glasovi.Count == 0)
+                             {
+                                 Console.WriteLine("Glasanje nije pocelo");
+                                 return;
+                             }
 
-                    Console.WriteLine("Od ukupno " + lokalniIzbori.Glasaci.Count + " glasalo je " + brojacZaGradonacelnika + " za gradonacelnika, " + brojacZaNacelnika + " za nacelnika, " + brojacZaVijecnike + " za vijecnike i " + brojacZaStranke + " za stranke generalno.\n");
-                    Console.WriteLine("Odnosno u postocima je to: " + (brojacZaGradonacelnika / lokalniIzbori.Glasaci.Count) * 100 + "% za gradonacelnika, " + (brojacZaNacelnika / lokalniIzbori.Glasaci.Count) * 100 + "% za nacelnika, " + (brojacZaVijecnike / lokalniIzbori.Glasaci.Count) * 100 + "% za vijecnike i " + (brojacZaStranke / lokalniIzbori.Glasaci.Count) * 100 + "% za stranke generalno.");
+                             // rezultati glasanja
+                             Console.WriteLine("Prikaz rezultata glasanja:\n");
 
-                    lokalniIzbori.Kandidati.Sort((k1, k2) => k1.BrojGlasova.CompareTo(k2.BrojGlasova));
+                             Console.Write("Ukupno postoji " + lokalniIzbori.Glasaci.Count + " glasaca.\n");
+                             Console.Write("Za gradonacelnika je glasalo: ");
+                             int brojacZaGradonacelnika = 0, brojacZaNacelnika = 0, brojacZaVijecnike = 0, brojacZaStranke = 0;
+                             foreach (Glasac g in lokalniIzbori.Glasaci)
+                             {
+                                 if (g.GlasaoZaGradonacelnika)
+                                     brojacZaGradonacelnika++;
+                                 if (g.GlasaoZaNacelnika)
+                                     brojacZaNacelnika++;
+                                 if (g.GlasaoZaVijecnika)
+                                     brojacZaVijecnike++;
+                             }
 
-                    Console.WriteLine("Gradonacelnik je: ");
-                    Kandidat kand = null;
-                    int brojacMjesta = 0;
-                    foreach (Kandidat k in lokalniIzbori.Kandidati)
-                    {
-                        if (k.PozicijaKandidata.NazivPozicije == NazivPozicije.gradonacelnik)
-                        {
-                            // Console.WriteLine(k.BiografijaKandidata.ImeKandidata + " " + k.BiografijaKandidata.PrezimeKandidata + " stranka: " + k.StrankaKandidata.NazivStranke + ", broj glasova: " + k.BrojGlasova + "\n");
-                            // break;
-                            kand = lokalniIzbori.Kandidati.ElementAt(0);
-                            k.RedniBrojOsvojenogMjesta = brojacMjesta + 1;
-                        }
-                    }
+                             foreach (Stranka s in lokalniIzbori.Stranke)
+                             {
+                                 brojacZaStranke += s.BrojGlasova;
+                             }
 
-                    Console.WriteLine(kand.BiografijaKandidata.ImeKandidata + " " + kand.BiografijaKandidata.PrezimeKandidata + " stranka: " + kand.StrankaKandidata.NazivStranke + ", broj glasova: " + kand.BrojGlasova + "\n");
+                             Console.WriteLine("Od ukupno " + lokalniIzbori.Glasaci.Count + " glasalo je " + brojacZaGradonacelnika + " za gradonacelnika, " + brojacZaNacelnika + " za nacelnika, " + brojacZaVijecnike + " za vijecnike i " + brojacZaStranke + " za stranke generalno.\n");
+                             Console.WriteLine("Odnosno u postocima je to: " + (brojacZaGradonacelnika / lokalniIzbori.Glasaci.Count) * 100 + "% za gradonacelnika, " + (brojacZaNacelnika / lokalniIzbori.Glasaci.Count) * 100 + "% za nacelnika, " + (brojacZaVijecnike / lokalniIzbori.Glasaci.Count) * 100 + "% za vijecnike i " + (brojacZaStranke / lokalniIzbori.Glasaci.Count) * 100 + "% za stranke generalno.");
 
-                    brojacMjesta = 0;
-                    Console.WriteLine("Nacelnik je: ");
-                    foreach (Kandidat k in lokalniIzbori.Kandidati)
-                    {
-                        if (k.PozicijaKandidata.NazivPozicije == NazivPozicije.nacelnik)
-                        {
-                            // Console.WriteLine(k.BiografijaKandidata.ImeKandidata + " " + k.BiografijaKandidata.PrezimeKandidata + " stranka: " + k.StrankaKandidata.NazivStranke + ", broj glasova: " + k.BrojGlasova + "\n");
-                            // break;
-                            kand = lokalniIzbori.Kandidati.ElementAt(0);
-                            k.RedniBrojOsvojenogMjesta = brojacMjesta + 1;
-                        }
-                    }
+                             lokalniIzbori.Kandidati.Sort((k1, k2) => k1.BrojGlasova.CompareTo(k2.BrojGlasova));
 
-                    Console.WriteLine(kand.BiografijaKandidata.ImeKandidata + " " + kand.BiografijaKandidata.PrezimeKandidata + " stranka: " + kand.StrankaKandidata.NazivStranke + ", broj glasova: " + kand.BrojGlasova + "\n");
+                             Console.WriteLine("Gradonacelnik je: ");
+                             Kandidat kand = null;
+                             int brojacMjesta = 0;
+                             foreach (Kandidat k in lokalniIzbori.Kandidati)
+                             {
+                                 if (k.PozicijaKandidata.NazivPozicije == NazivPozicije.gradonacelnik)
+                                 {
+                                     // Console.WriteLine(k.BiografijaKandidata.ImeKandidata + " " + k.BiografijaKandidata.PrezimeKandidata + " stranka: " + k.StrankaKandidata.NazivStranke + ", broj glasova: " + k.BrojGlasova + "\n");
+                                     // break;
+                                     kand = lokalniIzbori.Kandidati.ElementAt(0);
+                                     k.RedniBrojOsvojenogMjesta = brojacMjesta + 1;
+                                 }
+                             }
 
-                    brojacMjesta = 0;
-                    Console.WriteLine("Rezultati vijecnika: ");
-                    foreach (Kandidat k in lokalniIzbori.Kandidati)
-                    {
-                        if (k.PozicijaKandidata.NazivPozicije == NazivPozicije.vijecnik)
-                        {
-                            k.RedniBrojOsvojenogMjesta = brojacMjesta + 1;
-                            Console.WriteLine(k.BiografijaKandidata.ImeKandidata + " " + k.BiografijaKandidata.PrezimeKandidata + " stranka: " + k.StrankaKandidata.NazivStranke + ", broj glasova: " + k.BrojGlasova + "\n");
-                        }
-                    }
+                             Console.WriteLine(kand.BiografijaKandidata.ImeKandidata + " " + kand.BiografijaKandidata.PrezimeKandidata + " stranka: " + kand.StrankaKandidata.NazivStranke + ", broj glasova: " + kand.BrojGlasova + "\n");
 
-                    brojacMjesta = 0;
-                    lokalniIzbori.Stranke.Sort((s1, s2) => s1.BrojGlasova.CompareTo(s2.BrojGlasova));
-                    Console.WriteLine("Rezultati stranaka: ");
-                    foreach (Stranka s in lokalniIzbori.Stranke)
-                    {
-                        Console.WriteLine(s.NazivStranke + " broj glasova: " + s.BrojGlasova + "\n");
-                        s.RedniBrojMjesta = brojacMjesta + 1;
-                    }
+                             brojacMjesta = 0;
+                             Console.WriteLine("Nacelnik je: ");
+                             foreach (Kandidat k in lokalniIzbori.Kandidati)
+                             {
+                                 if (k.PozicijaKandidata.NazivPozicije == NazivPozicije.nacelnik)
+                                 {
+                                     // Console.WriteLine(k.BiografijaKandidata.ImeKandidata + " " + k.BiografijaKandidata.PrezimeKandidata + " stranka: " + k.StrankaKandidata.NazivStranke + ", broj glasova: " + k.BrojGlasova + "\n");
+                                     // break;
+                                     kand = lokalniIzbori.Kandidati.ElementAt(0);
+                                     k.RedniBrojOsvojenogMjesta = brojacMjesta + 1;
+                                 }
+                             }
 
-                    Console.WriteLine("Informacije o ukupnom broju glasova za kandidate koji su i članovi rukovodstva svoje stranke: ");
-                    foreach (Stranka s in lokalniIzbori.Stranke)
-                    {
-                        Console.WriteLine(s.PrikazRezultataRukovodstva());
-                    }
-                }
-            }
+                             Console.WriteLine(kand.BiografijaKandidata.ImeKandidata + " " + kand.BiografijaKandidata.PrezimeKandidata + " stranka: " + kand.StrankaKandidata.NazivStranke + ", broj glasova: " + kand.BrojGlasova + "\n");
+
+                             brojacMjesta = 0;
+                             Console.WriteLine("Rezultati vijecnika: ");
+                             foreach (Kandidat k in lokalniIzbori.Kandidati)
+                             {
+                                 if (k.PozicijaKandidata.NazivPozicije == NazivPozicije.vijecnik)
+                                 {
+                                     k.RedniBrojOsvojenogMjesta = brojacMjesta + 1;
+                                     Console.WriteLine(k.BiografijaKandidata.ImeKandidata + " " + k.BiografijaKandidata.PrezimeKandidata + " stranka: " + k.StrankaKandidata.NazivStranke + ", broj glasova: " + k.BrojGlasova + "\n");
+                                 }
+                             }
+
+                             brojacMjesta = 0;
+                             lokalniIzbori.Stranke.Sort((s1, s2) => s1.BrojGlasova.CompareTo(s2.BrojGlasova));
+                             Console.WriteLine("Rezultati stranaka: ");
+                             foreach (Stranka s in lokalniIzbori.Stranke)
+                             {
+                                 Console.WriteLine(s.NazivStranke + " broj glasova: " + s.BrojGlasova + "\n");
+                                 s.RedniBrojMjesta = brojacMjesta + 1;
+                             }
+
+                             Console.WriteLine("Informacije o ukupnom broju glasova za kandidate koji su i članovi rukovodstva svoje stranke: ");
+                             foreach (Stranka s in lokalniIzbori.Stranke)
+                             {
+                                 Console.WriteLine(s.PrikazRezultataRukovodstva());
+                             }
+                         }
+        }
         }
     }
 

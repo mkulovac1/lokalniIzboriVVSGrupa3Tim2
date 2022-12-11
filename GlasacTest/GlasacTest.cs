@@ -444,7 +444,7 @@ namespace UnitTest1
             Glasac g = new Glasac(ime, prezime, rodjenje, adresa, licnaKarta, jmbg, pol);
         }
 
-        [TestMethod]
+        /*[TestMethod]
         [DynamicData("Glasaci")]
         public void TestResetSvihGlasanja(string ime, string prezime, DateTime rodjenje, string adresa, string licnaKarta, string jmbg, Pol pol)
         {
@@ -498,6 +498,6 @@ namespace UnitTest1
             Assert.AreEqual(false, g.ProvjeraSifre(tajnaSifra1, validanJik1));
             Assert.AreEqual(false, g.ProvjeraSifre(tajnaSifra1, validanJik2));
             Assert.AreEqual(false, g.ProvjeraSifre(tajnaSifra2, validanJik2));
-        }
+        }*/
     }
 }

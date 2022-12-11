@@ -17,6 +17,17 @@ namespace lokalniIzboriVVSGrupa3Tim2
             this.glasac = glasac;
             this.kandidat = kandidat;
             this.datumGlasanja = datumGlasanja;
+            
+            // povećavanje glasova ovdje, a ne u main odnosno u Program.cs!
+            if(kandidat.StrankaKandidata != null && kandidat.PozicijaKandidata.NazivPozicije.Equals(NazivPozicije.vijecnik))
+            {
+                kandidat.BrojGlasova = kandidat.BrojGlasova + 1;
+                kandidat.StrankaKandidata.BrojGlasova = kandidat.StrankaKandidata.BrojGlasova + 1;
+            }
+            else
+            {
+                kandidat.BrojGlasova = kandidat.BrojGlasova + 1;
+            }
         }
 
         public Glasac Glasac { get => glasac; set => glasac = value; }

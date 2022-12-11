@@ -17,16 +17,16 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
         public Kandidat(String ime, String prezime, DateTime datumRodjenja, String adresa, String brojLicneKarte, string jmbg, Pol pol, Biografija biografijaKandidata, Stranka strankaKandidata, Pozicija pozicijaKandidata, int brojNaListi) : base(ime,prezime,datumRodjenja,adresa,brojLicneKarte,jmbg,pol)
         {
-            this.BiografijaKandidata = biografijaKandidata;
-            this.StrankaKandidata = strankaKandidata;
-            this.PozicijaKandidata = pozicijaKandidata;
-            this.BrojNaListi = brojNaListi;
-            BrojGlasova = 0;
-            RedniBrojOsvojenogMjesta = 0;
+            this.biografijaKandidata = biografijaKandidata;
+            this.strankaKandidata = strankaKandidata;
+            this.pozicijaKandidata = pozicijaKandidata;
+            this.brojNaListi = brojNaListi;
+            brojGlasova = 0;
+            redniBrojOsvojenogMjesta = 0;
         }
 
-        internal Biografija BiografijaKandidata { get => biografijaKandidata; set => biografijaKandidata = value; }
-        internal Stranka StrankaKandidata { get => strankaKandidata; set => strankaKandidata = value; }
+        public Biografija BiografijaKandidata { get => biografijaKandidata; set => biografijaKandidata = value; }
+        public Stranka StrankaKandidata { get => strankaKandidata; set => strankaKandidata = value; }
         public Pozicija PozicijaKandidata { get => pozicijaKandidata; set => pozicijaKandidata = value; }
         public int RedniBrojOsvojenogMjesta { get => redniBrojOsvojenogMjesta; set => redniBrojOsvojenogMjesta = value; }
         public int BrojGlasova { get => brojGlasova; set => brojGlasova = value; }

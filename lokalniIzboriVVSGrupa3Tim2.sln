@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lokalniIzboriVVSGrupa3Tim2"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlasacTest", "GlasacTest\GlasacTest.csproj", "{E0A1A98C-B1B2-4109-B408-9B13BE5191A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KandidatTest", "KandidatTest\KandidatTest.csproj", "{8F50A991-8590-46E7-8776-189E22615884}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KandidatTest", "KandidatTest\KandidatTest.csproj", "{8F50A991-8590-46E7-8776-189E22615884}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrankaTest", "StrankaTest\StrankaTest.csproj", "{97AA5CA3-9DA5-4304-B694-622E9DFF3DD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrankaTest", "StrankaTest\StrankaTest.csproj", "{97AA5CA3-9DA5-4304-B694-622E9DFF3DD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RezultatiGlasanjaTest", "RezultatiGlasanjaTest\RezultatiGlasanjaTest.csproj", "{B1EFC7E0-ACDF-4888-9BA7-65B05B3CE093}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{97AA5CA3-9DA5-4304-B694-622E9DFF3DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97AA5CA3-9DA5-4304-B694-622E9DFF3DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97AA5CA3-9DA5-4304-B694-622E9DFF3DD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1EFC7E0-ACDF-4888-9BA7-65B05B3CE093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EFC7E0-ACDF-4888-9BA7-65B05B3CE093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1EFC7E0-ACDF-4888-9BA7-65B05B3CE093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1EFC7E0-ACDF-4888-9BA7-65B05B3CE093}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
