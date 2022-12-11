@@ -544,5 +544,17 @@ namespace UnitTest1
             Assert.AreEqual(false, g.ProvjeraSifre(tajnaSifra1, validanJik2));
             Assert.AreEqual(false, g.ProvjeraSifre(tajnaSifra2, validanJik2));
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestZamjenskiObjekat()
+        {
+            Glasac g = new Glasac("Merim", "Kulovac", new DateTime(1999, 8, 28), "Hrasnicka cesta 23", "321T999", "2808999170065", Pol.muski);
+            Spy temp = new Spy();
+            temp.Glasao = false;
+            Assert.IsTrue(g.VjerodostojnostGlasaca(temp));
+            temp.Glasao = true;
+            Assert.IsTrue(g.VjerodostojnostGlasaca(temp));
+        }
     }
 }
