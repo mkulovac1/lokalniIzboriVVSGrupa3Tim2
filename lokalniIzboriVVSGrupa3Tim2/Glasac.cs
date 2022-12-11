@@ -363,6 +363,14 @@ namespace lokalniIzboriVVSGrupa3Tim2
             return false;
         }
 
+        public bool VjerodostojnostGlasaca(IProvjera sigurnosnaProvjera)
+        {
+            if (sigurnosnaProvjera.DaLiJeVecGlasao(jik))
+                throw new Exception("Glasač je već izvršio glasanje!");
+            return true;
+        }
+
+
     }
 }
 
