@@ -65,5 +65,18 @@ namespace lokalniIzboriVVSGrupa3Tim2
         public int RedniBrojOsvojenogMjesta { get => redniBrojOsvojenogMjesta; set => redniBrojOsvojenogMjesta = value; }
         public int BrojGlasova { get => brojGlasova; set => brojGlasova = value; }
         public int BrojNaListi { get => brojNaListi; set => brojNaListi = value; }
+
+       /*public override bool Equals(Object obj)
+       {
+            //Kandidat gr1 = new Kandidat(b, osmorka, gradonacelnik, 10);
+
+            Kandidat k = (Kandidat)obj;
+            if (k == null)
+                return false;
+            if (this.BiografijaKandidata.ImeKandidata == k.BiografijaKandidata.ImeKandidata && this.BiografijaKandidata.ImeKandidata == k.BiografijaKandidata.PrezimeKandidata && this.RedniBrojOsvojenogMjesta == k.RedniBrojOsvojenogMjesta &&
+                this.PozicijaKandidata.NazivPozicije == k.PozicijaKandidata.NazivPozicije && this.PozicijaKandidata.OpisPozicije == k.PozicijaKandidata.OpisPozicije && this.PozicijaKandidata.DuzinaTrajanjaMandata == k.PozicijaKandidata.DuzinaTrajanjaMandata)
+                return true;
+             return false;
+        }*/
     }
 }

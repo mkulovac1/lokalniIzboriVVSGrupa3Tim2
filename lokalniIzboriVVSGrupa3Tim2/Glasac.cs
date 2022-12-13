@@ -1,6 +1,7 @@
 ﻿using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace lokalniIzboriVVSGrupa3Tim2
 {
@@ -387,7 +388,17 @@ namespace lokalniIzboriVVSGrupa3Tim2
             return true;
         }
 
-
+        /*public override bool Equals(Object obj)
+        {
+            //Glasac ponistiGlas = new Glasac("DamirA", "Damic", new DateTime(1999, 12, 12), "sklj 123", "999E999", "1212999170065", Pol.muski);
+            Glasac g = (Glasac)obj;
+            if (g == null)
+                return false;
+            if (ime == g.Ime && prezime == g.Prezime && datumRodjenja.Day == g.DatumRodjenja.Day && datumRodjenja.Month == g.DatumRodjenja.Month
+                && datumRodjenja.Year == g.DatumRodjenja.Year && adresa == g.Adresa && brojLicneKarte == g.BrojLicneKarte && jmbg == g.Jmbg && pol == g.Pol)
+                return true;
+            return false;
+        }*/
     }
 }
 

@@ -138,67 +138,79 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
         public void ResetGlasanjaZaGradonacelnika(Glasac glasac)
         {
-            foreach (Glas glas in glasovi)
+            bool nasaoKandidata = false;
+            for (int i = 0; i < glasovi.Count; i++)
             {
-                if (glas.Glasac.Equals(glasac))
+
+                if (glasovi[i].Glasac.GlasaoZaNacelnika)
                 {
-                    // sad je potrebno izbrisati klas kandidatu za koga je glasac "glasac" glasao, to ćemo uraditi na način da nađemo kandidata u listi Kandidata koji odgovara kandidatu sa glasačkog listića
-                    foreach (Kandidat k in kandidati)
+                    for (int j = 0; j < kandidati.Count; j++)
                     {
-                        if (k.Equals(glas.Kandidat) && k.PozicijaKandidata.NazivPozicije == NazivPozicije.gradonacelnik)
+                        nasaoKandidata = false;
+                        if (kandidati[j].PozicijaKandidata.NazivPozicije == NazivPozicije.gradonacelnik && kandidati[j].Equals(glasovi[i].Kandidat))
                         {
-                            
-                            k.BrojGlasova--;
-                            
+                            kandidati[j].BrojGlasova = kandidati[j].BrojGlasova - 1;
+                            nasaoKandidata = true;
                             break;
+
                         }
                     }
-                    glasovi.Remove(glas); // ako se naiđe na glasački listić koji ima istog glasača kao i proslijeđeni glasač, onda se briše iz liste glasova
-                    break;
                 }
+
+                if (nasaoKandidata)
+                    break;
             }
         }
         public void ResetGlasanjaZaNacelnika(Glasac glasac)
         {
-            foreach (Glas glas in glasovi)
+            // Console.WriteLine(glasovi.Count);
+            bool nasaoKandidata = false;
+            for (int i = 0; i < glasovi.Count; i++)
             {
-                if (glas.Glasac.Equals(glasac))
+
+                if (glasovi[i].Glasac.GlasaoZaNacelnika)
                 {
-                    // sad je potrebno izbrisati klas kandidatu za koga je glasac "glasac" glasao, to ćemo uraditi na način da nađemo kandidata u listi Kandidata koji odgovara kandidatu sa glasačkog listića
-                    foreach (Kandidat k in kandidati)
+                    for (int j = 0; j < kandidati.Count; j++)
                     {
-                        if (k.Equals(glas.Kandidat) && k.PozicijaKandidata.NazivPozicije == NazivPozicije.nacelnik)
+                        nasaoKandidata = false;
+                        if (kandidati[j].PozicijaKandidata.NazivPozicije == NazivPozicije.nacelnik && kandidati[j].Equals(glasovi[i].Kandidat))
                         {
-                            
-                            k.BrojGlasova--;
-                            break;
+                            kandidati[j].BrojGlasova = kandidati[j].BrojGlasova - 1;
+                            nasaoKandidata = true;
+                            break;     
+                            }
                         }
                     }
-                    glasovi.Remove(glas); // ako se naiđe na glasački listić koji ima istog glasača kao i proslijeđeni glasač, onda se briše iz liste glasova
+                
+                if (nasaoKandidata)
                     break;
-                }
             }
         }
         public void ResetGlasanjaZaVijecnika(Glasac glasac)
         {
-            foreach (Glas glas in glasovi)
+            bool nasaoKandidata = false;
+            for (int i = 0; i < glasovi.Count; i++)
             {
-                if (glas.Glasac.Equals(glasac))
+
+                if (glasovi[i].Glasac.GlasaoZaVijecnika)
                 {
-                    // sad je potrebno izbrisati klas kandidatu za koga je glasac "glasac" glasao, to ćemo uraditi na način da nađemo kandidata u listi Kandidata koji odgovara kandidatu sa glasačkog listića
-                    foreach (Kandidat k in kandidati)
+                    for (int j = 0; j < kandidati.Count; j++)
                     {
-                        if (k.Equals(glas.Kandidat) && k.PozicijaKandidata.NazivPozicije == NazivPozicije.vijecnik)
+                        nasaoKandidata = false;
+                        if (kandidati[j].PozicijaKandidata.NazivPozicije == NazivPozicije.vijecnik && kandidati[j].Equals(glasovi[i].Kandidat))
                         {
-                            
-                            k.BrojGlasova--;
-                            k.StrankaKandidata.BrojGlasova--;
+
+                            kandidati[j].BrojGlasova = kandidati[j].BrojGlasova - 1;
+                            kandidati[j].StrankaKandidata.BrojGlasova = kandidati[j].StrankaKandidata.BrojGlasova - 1;
+                            nasaoKandidata = true;
                             break;
+
                         }
                     }
-                    glasovi.Remove(glas); // ako se naiđe na glasački listić koji ima istog glasača kao i proslijeđeni glasač, onda se briše iz liste glasova
-                    break;
                 }
+
+                if (nasaoKandidata)
+                    break;
             }
         }
 
@@ -422,6 +434,18 @@ namespace lokalniIzboriVVSGrupa3Tim2
             Console.WriteLine("\n");
         }
 
+        public Kandidat NadjiVijecnika(string ime, string prezime, string licnaKarta)
+        {
+            foreach(Kandidat k in kandidati)
+            {
+                if(k.PozicijaKandidata.NazivPozicije == NazivPozicije.vijecnik && k.Ime == ime && k.Prezime == prezime && k.BrojLicneKarte == licnaKarta)
+                {
+                    return k;
+                }
+            }
+            return null;
+        }
+
         // METODA KOJA ĆE UBACITI PODATKE ZA GLASANJE JER NEMAMO BAZU PODATAKA:
         public void KreirajIzbore()
         {
@@ -520,6 +544,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 glasovi.Add(new Glas(glasaci[i], gr1, DateTime.Now));
                 glasaci[i].GlasaoZaGradonacelnika = true;
             }
+
             for (int i = 23; i < 55; i++)
             {
                 glasovi.Add(new Glas(glasaci[i], gr2, DateTime.Now));

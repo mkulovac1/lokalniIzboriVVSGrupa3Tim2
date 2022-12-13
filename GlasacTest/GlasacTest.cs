@@ -482,55 +482,57 @@ namespace UnitTest1
         // SLJEDECE TESTOVE JE PISAO IBRAHIM EFENDIC
 
 
-        [TestMethod]
-        [DynamicData("GlasaciLegalni")]
-        public void TestResetSvihGlasanja(string ime, string prezime, DateTime rodjenje, string adresa, string licnaKarta, string jmbg, Pol pol)
+        DateTime VratiDatum(string datum)
         {
-
-            
-            Glasac g = new Glasac(ime, prezime,rodjenje, adresa, licnaKarta, jmbg, pol);
-            LokalniIzbori lokalniIzbori = new LokalniIzbori();
-            Biografija b1 = new Biografija("kandidat1", "proba1", new DateTime(1999, 1, 1), "dasdasdas", "dasdasda", "dadada");
-            Biografija b2 = new Biografija("kandidat2", "proba2", new DateTime(1999, 1, 31), "dasdasdas", "dasdasda", "dadada");
-            Stranka s1 = new Stranka("SDA", "DADASDASDASDSA");
-            Pozicija p1 = new Pozicija(NazivPozicije.nacelnik, "dasdasdsa", 33);
-            Pozicija p2 = new Pozicija(NazivPozicije.gradonacelnik, "dasdasdsa", 33);
-            Pozicija p3 = new Pozicija(NazivPozicije.vijecnik, "dasdasdsa", 33);
-
-            Kandidat k1 = new Kandidat("Isko", "Iskiæ", new DateTime(2000, 9, 9), "adresa 23", "999T999", "0909000170065", Pol.muski, b1, s1, p1, 33);
-            Kandidat k2 = new Kandidat("Neda", "Nediæ", new DateTime(1978, 11, 22), "adresa1", "323E789", "2211978890123", Pol.muski, b2, s1, p2, 11);
-            Kandidat k3 = new Kandidat("Neda", "Nediæ", new DateTime(1978, 11, 22), "adresa1", "323E789", "2211978890123", Pol.muski, b2, s1, p3, 12);
-            k1.BrojGlasova = 10;
-            k2.BrojGlasova = 12;
-            k3.BrojGlasova = 15;
-            s1.BrojGlasova = 100;
-            List<Kandidat> kandidati = new List<Kandidat>();
-            kandidati.Add(k1);
-            kandidati.Add(k2);
-            kandidati.Add(k3);
-            lokalniIzbori.Kandidati = kandidati;
-
-            List<Glasac> glasaci = new List<Glasac>();
-            glasaci.Add(g);
-            lokalniIzbori.Glasaci = glasaci;
-
-            lokalniIzbori.Glasovi.Add(new Glas(g, k1, DateTime.Now));
-            lokalniIzbori.Glasovi.Add(new Glas(g, k2, DateTime.Now));
-            lokalniIzbori.Glasovi.Add(new Glas(g, k3, DateTime.Now));
-
-            //g.GlasaoZaGradonacelnika = true;
-            //g.GlasaoZaNacelnika = true;
-            //g.GlasaoZaVijecnika = true;
-            lokalniIzbori.ResetGlasanjaZaGradonacelnika(g);
-            lokalniIzbori.ResetGlasanjaZaNacelnika(g);
-            lokalniIzbori.ResetGlasanjaZaVijecnika(g);
-            
-
-            Assert.AreEqual(10, k1.BrojGlasova);
-            Assert.AreEqual(12, k2.BrojGlasova);
-            Assert.AreEqual(15, k3.BrojGlasova);
-            Assert.AreEqual(100, s1.BrojGlasova);
+            return DateTime.Parse(datum);
         }
+
+
+        Pol VratiPol(string pol)
+        {
+            if (pol == "muski")
+                return Pol.muski;
+            else
+                return Pol.zenski;
+        }
+
+
+
+        /*[TestMethod]
+        [DynamicData("GlasaciLegalni")]*/
+        //string ime, string prezime, string rodjenje, string adresa, string licnaKarta, string jmbg, string pol
+        [TestMethod]
+        public void TestResetSvihGlasanja()
+        {
+            // List<Glasac> glasaciCsv = new List<Glasac>();
+            // glasaciCsv.Add(new Glasac(ime, prezime, VratiDatum(rodjenje), adresa, licnaKarta, jmbg, VratiPol(pol);
+            LokalniIzbori lokalniIzbori = new LokalniIzbori();
+            lokalniIzbori.KreirajIzbore();
+            // lokalniIzbori.Glasaci = glasaciCsv;
+
+            // Ovaj glasac je glasao za sve tri funkcije tj. gradonacelnik, nacelnik i vijecnika jednog
+            Glasac ponistiGlas = new Glasac("DamirA", "Damic", new DateTime(1999, 12, 12), "sklj 123", "999E999", "1212999170065", Pol.muski);
+            // Gradonacelnik: Merim Kulovac, [0]
+            // Nacelnik: Mujo Mujic, [5]
+            // Vijecnik: Huso Husic, [6]
+
+            Assert.AreEqual(23, lokalniIzbori.Kandidati[0].BrojGlasova);
+            Assert.AreEqual(23, lokalniIzbori.Kandidati[5].BrojGlasova);
+            Assert.AreEqual(11, lokalniIzbori.Kandidati[6].BrojGlasova);
+
+            // Kandidat vijecnik = lokalniIzbori.NadjiVijecnika("Huso", "Husic", "123E123");
+
+            // Assert.AreEqual(vijecnik.BrojGlasova, 11);
+
+            lokalniIzbori.ResetGlasanjaZaGradonacelnika(ponistiGlas);
+            lokalniIzbori.ResetGlasanjaZaNacelnika(ponistiGlas);
+            lokalniIzbori.ResetGlasanjaZaVijecnika(ponistiGlas);
+
+            Assert.AreEqual(22, lokalniIzbori.Kandidati[0].BrojGlasova);
+            Assert.AreEqual(22, lokalniIzbori.Kandidati[5].BrojGlasova);
+            Assert.AreEqual(10, lokalniIzbori.Kandidati[6].BrojGlasova);
+        }
+
         [TestMethod]
         [DynamicData("GlasaciLegalni")]
         public void TestUnosaSifre(string ime, string prezime, DateTime rodjenje, string adresa, string licnaKarta, string jmbg, Pol pol)
