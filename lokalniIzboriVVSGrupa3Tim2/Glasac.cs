@@ -183,20 +183,34 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
         private void ProvjeraJmbg(string jmbg)
         {
-            // potrebno je samo provjeriti prvih 7 brojeva tj da li su jednaki datumu, prva cifra godine se ne gleda vec preostale 3:
             if (jmbg == null)
                 throw new ArgumentNullException("Glasač mora imati JMBG - JMBG ne smije biti NULL!");
 
             if (jmbg.Length != 13)
                 throw new ArgumentException("JMBG mora imati tačno 13 brojeva!");
 
+            DaLiPostojiZabranjeniZnak(jmbg);
+
+            string dan = VratiDanDatuma();
+            string mjesec = VratiMjesecDatuma();
+            string godina = datumRodjenja.Year.ToString().Remove(0, 1);
+
+            if (jmbg.Substring(0, 2) != dan || jmbg.Substring(2, 2) != mjesec || jmbg.Substring(4, 3) != godina)
+                throw new ArgumentException("Prvih 7 cifara JMBG moraju biti jednake datumu rođenja!");
+        }
+
+
+        private void DaLiPostojiZabranjeniZnak(string jmbg)
+        {
             foreach (char c in jmbg.ToCharArray())
             {
                 if (!Char.IsDigit(c))
                     throw new ArgumentException("JMBG mora sadržavati samo brojeve!");
             }
+        }
 
-
+        private string VratiDanDatuma()
+        {
             string dan = "";
             if (datumRodjenja.Day < 10)
             {
@@ -206,7 +220,11 @@ namespace lokalniIzboriVVSGrupa3Tim2
             {
                 dan = datumRodjenja.Day.ToString();
             }
+            return dan;
+        }
 
+        private string VratiMjesecDatuma()
+        {
             string mjesec = "";
             if (datumRodjenja.Month < 10)
             {
@@ -216,12 +234,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
             {
                 mjesec = datumRodjenja.Month.ToString();
             }
-
-            string godina = datumRodjenja.Year.ToString().Remove(0, 1);
-
-            // string top = dan + mjesec + godina;
-            if (jmbg.Substring(0, 2) != dan || jmbg.Substring(2, 2) != mjesec || jmbg.Substring(4, 3) != godina) // 2808999
-                throw new ArgumentException("Prvih 7 cifara JMBG moraju biti jednake datumu rođenja!");
+            return mjesec;
         }
 
         public void ProvjeriJIK(string jik)
