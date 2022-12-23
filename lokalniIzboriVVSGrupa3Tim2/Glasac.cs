@@ -90,14 +90,33 @@ namespace lokalniIzboriVVSGrupa3Tim2
             return true;
         }
 
-        private void ProvjeraImena(string ime)
+        private void ProvjeriNullIPrazno(string ime)
         {
-            // mozda treba gledati ako ima crtica u imenu da onda ide i prije i poslije crtice ime koje je >= 2 hmm isto vazi i za prezime ?!
             if (ime == null)
                 throw new ArgumentNullException("Glasač mora imati ime - ime ne smije biti NULL!");
 
             if (ime.Length == 0)
                 throw new ArgumentException("Ime ne može biti prazna riječ!");
+        }
+
+        /*private void ProvjeraImena(string ime)
+        {
+            if (ime == null)
+                throw new ArgumentNullException("Glasač mora imati ime - ime ne smije biti NULL!");
+
+            if (ime.Length == 0)
+                throw new ArgumentException("Ime ne može biti prazna riječ!");
+
+            if (ime.Length < 2 || ime.Length > 40)
+                throw new ArgumentOutOfRangeException("Upisano ime nije validno! Ime mora imati izmedju 2 i 40 karaktera!");
+
+            if (!ProvjeriImePrezimeDodatno(ime) || BrojCrtica(ime) > 1)
+                throw new ArgumentException("Ime smije da sadrži samo slova i crticu");
+        }*/
+
+        private void ProvjeraImena(string ime) //refaktoring
+        {
+            ProvjeriNullIPrazno(ime);
 
             if (ime.Length < 2 || ime.Length > 40)
                 throw new ArgumentOutOfRangeException("Upisano ime nije validno! Ime mora imati izmedju 2 i 40 karaktera!");

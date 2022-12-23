@@ -161,9 +161,8 @@ namespace lokalniIzboriVVSGrupa3Tim2
                     break;
             }
         }
-        public void ResetGlasanjaZaNacelnika(Glasac glasac)
+        /*public void ResetGlasanjaZaNacelnika()
         {
-            // Console.WriteLine(glasovi.Count);
             bool nasaoKandidata = false;
             for (int i = 0; i < glasovi.Count; i++)
             {
@@ -184,6 +183,36 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 
                 if (nasaoKandidata)
                     break;
+            }
+        }*/
+
+        private bool DaLiJeNadjenKandidat(int i)
+        {
+            for (int j = 0; j < kandidati.Count; j++)
+            {
+                if (kandidati[j].PozicijaKandidata.NazivPozicije == NazivPozicije.nacelnik && kandidati[j].Equals(glasovi[i].Kandidat))
+                {
+                    kandidati[j].BrojGlasova = kandidati[j].BrojGlasova - 1;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void ResetGlasanjaZaNacelnika() //refaktoring
+        {
+            for (int i = 0; i < glasovi.Count; i++)
+            {
+                if (glasovi[i].Glasac.GlasaoZaNacelnika)
+                {
+                    bool nasaoKandidata = false;
+                    for (int j = 0; j < kandidati.Count; j++)
+                    {
+                        nasaoKandidata = DaLiJeNadjenKandidat(i);
+                    }
+                    if (nasaoKandidata)
+                        break;
+                }
             }
         }
         public void ResetGlasanjaZaVijecnika(Glasac glasac)
