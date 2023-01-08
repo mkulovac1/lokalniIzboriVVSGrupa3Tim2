@@ -220,8 +220,8 @@ namespace lokalniIzboriVVSGrupa3Tim2
                         }
                         else
                         {
-                            lokalniIzbori.ResetGlasanjaZaGradonacelnika();
-                            lokalniIzbori.ResetGlasanjaZaNacelnika();
+                            lokalniIzbori.ResetGlasanjaZaGradonacelnika(g);
+                            lokalniIzbori.ResetGlasanjaZaNacelnika(g);
                             lokalniIzbori.ResetGlasanjaZaVijecnika(g);
                             
                          }

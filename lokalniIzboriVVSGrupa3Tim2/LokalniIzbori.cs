@@ -101,11 +101,11 @@ namespace lokalniIzboriVVSGrupa3Tim2
             // nezavisni 2 %
             if (k.StrankaKandidata == null)
             {
-                if (k.PozicijaKandidata.Equals(NazivPozicije.nacelnik) && k.BrojGlasova >= 0.02 * brojGlasovaZaNacelnika())
+                if (k.PozicijaKandidata.NazivPozicije.Equals(NazivPozicije.nacelnik) && k.BrojGlasova >= 0.02 * brojGlasovaZaNacelnika())
                     return true;
-                else if (k.PozicijaKandidata.Equals(NazivPozicije.gradonacelnik) && k.BrojGlasova >= 0.02 * brojGlasovaZaGradonacelnika())
+                else if (k.PozicijaKandidata.NazivPozicije.Equals(NazivPozicije.gradonacelnik) && k.BrojGlasova >= 0.02 * brojGlasovaZaGradonacelnika())
                     return true;
-                else if (k.PozicijaKandidata.Equals(NazivPozicije.vijecnik) && k.BrojGlasova >= 0.02 * brojGlasovaZaVijecnika())
+                else if (k.PozicijaKandidata.NazivPozicije.Equals(NazivPozicije.vijecnik) && k.BrojGlasova >= 0.02 * brojGlasovaZaVijecnika())
                     return true;
             }
             else // ako je u stranci
@@ -136,7 +136,7 @@ namespace lokalniIzboriVVSGrupa3Tim2
                 return false;
         }
 
-        public void ResetGlasanjaZaGradonacelnika()
+        public void ResetGlasanjaZaGradonacelnika(Glasac glasac)
         {
             for (int i = 0; i < glasovi.Count; i++)
             {
@@ -235,13 +235,11 @@ namespace lokalniIzboriVVSGrupa3Tim2
             return false;
         }
 
-        public void ResetGlasanjaZaNacelnika() 
+        public void ResetGlasanjaZaNacelnika(Glasac glasac) 
         {
             for (int i = 0; i < glasovi.Count; i++)
             {
-                bool nasaoKandidata = DajNacelnika(i);
-
-                if (nasaoKandidata)
+                if (DajNacelnika(i))
                     break;
             }
            

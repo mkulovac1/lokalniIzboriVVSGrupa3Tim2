@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RezultatiGlasanjaTest", "Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiografijaTest", "BiografijaTest\BiografijaTest.csproj", "{B95F0A2D-DFD6-495A-BA1D-065B6610EEA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuningTestProvjeraJmbg", "TuningTestProvjeraJmbg\TuningTestProvjeraJmbg.csproj", "{1DCEB153-646F-4525-BAAE-121C84AF1028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TuningTestProvjeraJmbg", "TuningTestProvjeraJmbg\TuningTestProvjeraJmbg.csproj", "{1DCEB153-646F-4525-BAAE-121C84AF1028}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaLiJeKandidatOsvojioMandatTest", "DaLiJeKandidatOsvojioMandatTest\DaLiJeKandidatOsvojioMandatTest.csproj", "{3368C17F-E33E-43FF-8ED2-F3E5336AB97D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{1DCEB153-646F-4525-BAAE-121C84AF1028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DCEB153-646F-4525-BAAE-121C84AF1028}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DCEB153-646F-4525-BAAE-121C84AF1028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3368C17F-E33E-43FF-8ED2-F3E5336AB97D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3368C17F-E33E-43FF-8ED2-F3E5336AB97D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3368C17F-E33E-43FF-8ED2-F3E5336AB97D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3368C17F-E33E-43FF-8ED2-F3E5336AB97D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

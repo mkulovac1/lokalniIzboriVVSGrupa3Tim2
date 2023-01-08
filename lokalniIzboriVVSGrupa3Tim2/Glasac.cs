@@ -328,7 +328,8 @@ namespace lokalniIzboriVVSGrupa3Tim2
             if (jmbg.Substring(0, 2) != dan || jmbg.Substring(2, 2) != mjesec || jmbg.Substring(4, 3) != godina) // 2808999
                 throw new ArgumentException("Prvih 7 cifara JMBG moraju biti jednake datumu rođenja!");
         }*/
-
+        
+        /*
         public void ProvjeraJmbg(string jmbg) //TUNING 3
         {
             // potrebno je samo provjeriti prvih 7 brojeva tj da li su jednaki datumu, prva cifra godine se ne gleda vec preostale 3:
@@ -348,6 +349,26 @@ namespace lokalniIzboriVVSGrupa3Tim2
 
             // string top = dan + mjesec + godina;
             if (jmbg.Substring(0, 2) != dan || jmbg.Substring(2, 2) != mjesec || jmbg.Substring(4, 3) != godina) // 2808999
+                throw new ArgumentException("Prvih 7 cifara JMBG moraju biti jednake datumu rođenja!");
+        }*/
+
+
+        public void ProvjeraJmbg(string jmbg) //TUNING 4
+        {
+            // potrebno je samo provjeriti prvih 7 brojeva tj da li su jednaki datumu, prva cifra godine se ne gleda vec preostale 3:
+            if (jmbg == null)
+                throw new ArgumentNullException("Glasač mora imati JMBG - JMBG ne smije biti NULL!");
+
+            if (jmbg.Length != 13)
+                throw new ArgumentException("JMBG mora imati tačno 13 brojeva!");
+
+            DaLiPostojiZabranjeniZnak(jmbg);
+
+
+            string godina = datumRodjenja.Year.ToString().Remove(0, 1);
+
+            // string top = dan + mjesec + godina;
+            if (jmbg.Substring(0, 2) != VratiDanDatuma() || jmbg.Substring(2, 2) != VratiMjesecDatuma() || jmbg.Substring(4, 3) != godina) // 2808999
                 throw new ArgumentException("Prvih 7 cifara JMBG moraju biti jednake datumu rođenja!");
         }
 
